@@ -1,0 +1,304 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:background="#999999" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+        
+        <TableLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+    		android:stretchColumns="1" >
+	
+	        <TableRow >
+	            <TextView 
+	                android:id="@+id/changefromdisplay"
+	                android:layout_width="fill_parent"
+	        		android:layout_height="fill_parent"
+	        		android:textSize="15dip"
+	        		android:background="#898989"
+	        		android:textColor="#404000"
+	        		android:gravity="top"
+	        		android:text="Dec" />"	
+        		<TextView	
+        			android:id="@+id/changedisplay"
+        			android:layout_width="fill_parent"
+        			android:layout_height="fill_parent"
+        			android:textSize="38dip"
+        			android:background="#898989"
+        			android:singleLine="true"
+        			android:textColor="#404000"
+        			android:gravity="center_vertical|end"
+        			android:text="0" />
+        		
+    		</TableRow>
+        </TableLayout>	    
+	        
+	    <TableLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+    		android:stretchColumns="0" >   
+	        <TableRow >
+	            
+	            <TextView 
+        	    	android:id="@+id/changeresult0"
+        	    	android:layout_width="wrap_content"
+           	 		android:layout_height="wrap_content"
+           		 	android:textSize="20dip"
+            		android:text="@string/changeresult" />
+        	    <Button 
+            		android:id="@+id/changebuttonac"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:textSize="20dip"
+            		android:text="AC" />
+	            
+	        </TableRow>
+        
+    	</TableLayout>
+    
+    	<ScrollView
+        	android:id="@+id/scrollView1"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content" >
+
+        	<LinearLayout
+        	    android:layout_width="match_parent"
+        	    android:layout_height="match_parent"
+        	    android:orientation="vertical" >
+        
+        		<TextView 
+            		android:id="@+id/changeresult1"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:textSize="23dip"
+            		android:text="@string/changeresult2" />
+        
+        		<TextView 
+            		android:id="@+id/changeresult2"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:textSize="23dip"
+            		android:text="@string/changeresult8" />
+        
+        		<TextView 
+            		android:id="@+id/changeresult3"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:textSize="23dip"
+            		android:text="@string/changeresult16" />
+        
+        		<TextView 
+            		android:id="@+id/changenumlongdis"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content" />
+        	
+        		<TextView 
+            		android:id="@+id/changefromcnidis"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content" />
+        	
+        		<TextView 
+        		    android:id="@+id/changeshownum"
+        		    android:layout_width="fill_parent"
+        		    android:layout_height="wrap_content" />
+            
+        	</LinearLayout>
+    	</ScrollView>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    
+    	<LinearLayout
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="horizontal" >
+    	    <Button 
+    	        android:id="@+id/changenumber7"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:textSize="28dip"
+        	    android:text="7"/>
+        	
+        	<Button 
+        	    android:id="@+id/changenumber8"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="8"/>
+        	
+        	<Button 
+        	    android:id="@+id/changenumber9"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        		    android:textSize="28dip"
+            	android:text="9"/>
+	
+	        <Button
+	            android:id="@+id/changenumberf"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+            	android:text="F"
+            	android:textSize="28dip" />
+        
+        	<Button 
+        	    android:id="@+id/changebuttonbin"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:textSize="16dip"
+        	    android:text="Bin"/>
+    	</LinearLayout>
+    
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+        	<Button 
+        	    android:id="@+id/changenumber4"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:textSize="28dip"
+        	    android:text="4"/>
+        
+        	<Button 
+        	    android:id="@+id/changenumber5"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:textSize="28dip"
+        	    android:text="5"/>
+        	
+        	<Button 
+        	    android:id="@+id/changenumber6"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="6"/>
+
+        	<Button
+        	    android:id="@+id/changenumbere"
+        	    android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:text="E"
+            	android:textSize="28dip" />
+        
+        	<Button 
+            	android:id="@+id/changebuttonoct"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="16dip"
+            	android:text="Oct"/>
+    	</LinearLayout>
+    
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+        	<Button 
+        	    android:id="@+id/changenumber1"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="1"/>
+        
+        	<Button 
+        	    android:id="@+id/changenumber2"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="2"/>
+        
+        	<Button 
+            	android:id="@+id/changenumber3"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="3"/>
+
+        	<Button
+            	android:id="@+id/changenumberd"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:text="D"
+            	android:textSize="28dip" />
+        
+        	<Button 
+            	android:id="@+id/changebuttondec"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="16dip"
+            	android:text="Dec"/>
+    	</LinearLayout>
+    
+    	<LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+        	<Button 
+        	    android:id="@+id/changenumber0"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="28dip"
+            	android:text="0"/>
+
+        	<Button
+            	android:id="@+id/changenumbera"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:text="A"
+            	android:textSize="28dip" />
+
+        	<Button
+        	   	android:id="@+id/changenumberb"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:text="B"
+        	    android:textSize="28dip" />
+
+        	<Button
+        	    android:id="@+id/changenumberc"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:text="C"
+        	    android:textSize="28dip" />
+        
+        	<Button 
+            	android:id="@+id/changebuttonhex"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:textSize="16dip"
+        	    android:text="Hex"/>
+    	</LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+        

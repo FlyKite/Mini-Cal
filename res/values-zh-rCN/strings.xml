@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">简洁计算器</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_exit">退出</string>
+    <string name="AboutTitle">简洁计算器</string>
+    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无~急需美工啊~\n急需改进啊~double类型精度有问题啊~问题大大的呢~不信就自己算121.1﹢0.1然后看结果~目前需要改进啊改进~要把double型给去掉~求帮助~\n---------------------------------\n简洁计算器 ver0.7.4</string>
+    <string name="AboutConfirm">确定</string>
+    <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做这个的很无聊唉~装了这个软件还看关于信息的都什么心态？赶紧来一起放风筝吧~</string>
+    <string name="AboutHome">一起放风筝吧~</string>
+    <string name="AboutHomeUri">http://weibo.cn/hiy0u</string>
+    <string name="menu_shownumon">显示各种数据</string>
+    <string name="menu_shownumoff">隐藏数据</string>
+    <string name="menu_help">帮助</string>
+    <string name="HelpTitle">帮助</string>
+    <string name="MainHelpMsg">别担心,这只是个普通的计算器~\n---------------------------------\n显示各种数据：在计算器下方显示内存中存储的各类变量数据~\nnum1：计算器上方所显示的数字\nnum2：计算器未显示出来的数字（按了加减乘除之后被num1会传给num2但num2并不在屏幕上显示）\ndisplaynum：在计算器上方显示的数字（用来检测跟num1是否相同）\nact：加减乘除\npoint：有无小数点\nk：小数点后有n位数k就是10的n次方\nshownum：是否显示以上数据（能看得到的时候都是true，即使是false也是不显示出来，看不到~）\n---------------------------------\n帮助：就是这个帮助窗口啦~\n---------------------------------\n关于：看看这个APP的信息~\n---------------------------------\n退出：退出计算器~\n---------------------------------\n有什么建议就来给我提建议吧~欢迎哦~</string>
+    <string name="ChangeHelpMsg">恭喜你找到了进制转换~\nBin：二进制\nOct：八进制\nDec：十进制\nHex：十六进制\n---------------------------------\n显示各种数据：在计算器下方显示内存中存储的各类变量数据~\nchangenumlong：计算器上方所显示的数字\nchangefrom：表示你为你输入的数字选择的进制\ncni：你输入的数字的个数\nshownum：是否显示以上数据（能看得到的时候都是true，即使是false也是不显示出来，看不到~）\n---------------------------------\n帮助：就是这个帮助窗口啦~\n---------------------------------\n关于：看看这个APP的信息~\n---------------------------------\n退出：退出计算器~\n按下手机上的返回键也是退出哦~\n---------------------------------\n有什么建议就来给我提建议吧~欢迎哦~</string>
+    <string name="HelpHome">来给我提建议吧~</string>
+    <string name="MusicShareUri">http://www.paperairplane.tk/music-share/</string>
+    <string name="menu_musicshare">纸飞机音乐分享</string>
+    <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
+    <string name="openMusicShare">来人，捉虫！</string>
+    <string name="VersionName">0.7.4</string>
+    <string name="menu_minicalNumberSystem">进制转换</string>
+    <string name="menu_minicalChange">单位转换</string>
+    <string name="menu_minicalback">返回</string>
+    <string name="changeresult">转换结果：</string>
+    <string name="changeresult2">二  进  制：</string>
+    <string name="changeresult8">八  进  制：</string>
+    <string name="changeresult10">十  进  制：</string>
+    <string name="changeresult16">十六进制：</string>
+    <string name="changenotfrom16error">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
+    <string name="SpillOverFrom8">溢出！（当八进制大于1777777时转换为二进制后long型变量溢出）</string>
+    <string name="SpillOverFrom10">溢出！（当十进制大于524287时转换为二进制后long型变量溢出）</string>
+    <string name="SpillOverFrom16">溢出！（当十六进制大于7FFFF时转换为二进制后long型变量溢出）</string>
+    <string-array name="changetype">
+        <item>长度</item>
+        <item>面积</item>
+        <item>体积</item>
+    </string-array>
+    <string-array name="changelength">
+        <item>埃米</item>
+        <item>纳米</item>
+        <item>微米</item>
+        <item>毫米</item>
+        <item>厘米</item>
+        <item>分米</item>
+        <item>米</item>
+        <item>千米/公里</item>
+        <item>英寸</item>
+        <item>英尺</item>
+        <item>码</item>
+        <item>英寻</item>
+        <item>弗隆</item>
+        <item>英里</item>
+        <item>海里</item>
+    </string-array>
+    <string-array name="changearea">
+        <item>平方毫米</item>
+        <item>平方厘米</item>
+        <item>平方分米</item>
+        <item>平方米</item>
+        <item>公亩</item>
+        <item>公顷</item>
+        <item>平方千米</item>
+        <item>平方英寸</item>
+        <item>平方英尺</item>
+        <item>平方码</item>
+        <item>平方竿</item>
+        <item>英亩</item>
+        <item>平方英里</item>
+    </string-array>
+    <string-array name="changevolume">
+        <item>立方毫米</item>
+        <item>立方厘米</item>
+        <item>毫升</item>
+        <item>厘升</item>
+        <item>分升</item>
+        <item>立方分米</item>
+        <item>升</item>
+        <item>公石/百升</item>
+        <item>立方米</item>
+        <item>茶匙</item>
+        <item>液盎司</item>
+        <item>杯</item>
+        <item>桶</item>
+        <item>亩英尺</item>
+        <item>没加仑</item>
+        <item>英加仑</item>
+        <item>立方英寸</item>
+        <item>立方英尺</item>
+        <item>立方英尺</item>
+        <item>立方码</item>
+    </string-array>
+    
+
+</resources>

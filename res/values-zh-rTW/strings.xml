@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">簡潔計算器</string>
+    <string name="menu_about">關於</string>
+    <string name="menu_exit">退出</string>
+    <string name="AboutTitle">簡潔計算器</string>
+    <string name="AboutMsg">紙飛機DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：無~急需美工啊~\n急需改進啊~double類型精度有問題啊~問題大大的呢呢~不信就自己算121.1﹢0.1然後看結果~目前需要改進啊改進~要把double型給去掉~求幫助~\n---------------------------------\n簡潔計算器 ver0.7.4</string>
+    <string name="AboutConfirm">確定</string>
+    <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做這個的很無聊唉~裝了這個軟體還看關於信息的都什麽心態？趕緊來一起放風箏吧~</string>
+    <string name="AboutHome">一起放風箏吧~</string>
+    <string name="AboutHomeUri">http://weibo.cn/hiy0u</string>
+    <string name="menu_shownumon">顯示各種數據</string>
+    <string name="menu_shownumoff">隱藏數據</string>
+    <string name="menu_help">幫助</string>
+    <string name="HelpTitle">幫助</string>
+    <string name="MainHelpMsg">別擔心,這隻是個普通的計算器~\n---------------------------------\n顯示各種數據：在計算器下方顯示內存中的各類變量數據~\nnum1：計算器上方所顯示的數字\nnum2：計算器未顯示出來的數字（按了加減乘除之後被num1會傳給num2但num2並不在屏幕上顯示）\ndisplaynum：在計算器上方顯示的數字（用來檢測跟num1是否相同）\nact：加減乘除\npoint：有無小數點\nk：小數點後有n位數k就是10的n次方\nshownum：是否顯示以上數據（能看得到的時候都是true，即使是false也是不顯示出來，看不到~）\n---------------------------------\n幫助：就是這個幫助窗口啦~\n---------------------------------\n關于：看看這個APP的信息~\n---------------------------------\n退出：退出計算器~\n---------------------------------\n有什麽建議就來給我提建議吧~歡迎哦~</string>
+    <string name="ChangeHelpMsg">恭喜你找到了進制轉換~\nBin：二進制\nOct：八進制\nDec：十進制\nHex：十六進制\n---------------------------------\n顯示各種數據：在計算器下方顯示內存中存儲的各類變量數據~\nchangenumlong：計算器上方所顯示的數字\nchangefrom：表示你爲你輸入的數字選擇的進制\ncni：你輸入的數字的個數\nshownum：是否顯示以上數據（能看得到的時候都是true，即使是false也是不顯示出來，看不到~）\n---------------------------------\n幫助：就是這個幫助窗口啦~\n---------------------------------\n關于：看看這個APP的信息~\n---------------------------------\n退出：退出計算器~\n按下手機上的返回鍵也是退出哦~\n---------------------------------\n有什麽建議就來給我提建議吧~歡迎哦~</string>
+    <string name="HelpHome">來給我提建議吧~</string>
+    <string name="MusicShareUri">http://www.paperairplane.tk/music-share/</string>
+    <string name="menu_musicshare">紙飛機音樂分享</string>
+    <string name="MusicShareMsg">想分享音樂心情，自己打字發條微博太麻煩？紙飛機音樂分享，一鍵搜索專輯介紹地址、專輯圖片，再點一下微博就發上來了。想分享到別處？一點就可以調用其它SNS應用了。音樂分享，就是那麽簡單！趕緊來捉蟲吧~</string>
+    <string name="openMusicShare">來人，捉蟲！</string>
+    <string name="VersionName">0.7.4</string>
+    <string name="menu_minicalNumberSystem">進制轉換</string>
+    <string name="menu_minicalChange">單位轉換</string>
+    <string name="menu_minicalback">返回</string>
+    <string name="changeresult">轉換結果：</string>
+    <string name="changeresult2">二  進  制：</string>
+    <string name="changeresult8">八  進  制：</string>
+    <string name="changeresult10">十  進  制：</string>
+    <string name="changeresult16">十六進制：</string>
+    <string name="changenotfrom16error">您輸入的數不符合您所選擇的進制哦~會出錯的哦~清零之後再輸入吧~</string>
+    <string name="SpillOverFrom8">溢出！（當八進制大于1777777時轉換爲二進制後long型變量溢出）</string>
+    <string name="SpillOverFrom10">溢出！（當十進制大于524287時轉換爲二進制後long型變量溢出）</string>
+    <string name="SpillOverFrom16">溢出！（當十六進制大于7FFFF時轉換爲二進制後long型變量溢出）</string>
+    
+
+</resources>

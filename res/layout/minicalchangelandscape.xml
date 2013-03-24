@@ -1,0 +1,215 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#999999"
+    android:orientation="horizontal" >
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:orientation="vertical"
+    	android:layout_weight="1">
+        
+        <LinearLayout
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+	
+	        <Spinner
+	            android:id="@+id/fromspinner"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1" />
+	
+	        <Spinner
+	            android:id="@+id/changespinner"
+   	        	android:layout_width="fill_parent"
+   	        	android:layout_height="wrap_content"
+   	  			android:layout_weight="1" />
+
+        	<Spinner
+            	android:id="@+id/tospinner"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+      			android:layout_weight="1" />
+
+    	</LinearLayout>
+
+    	<LinearLayout
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical"
+        	android:weightSum="100" >
+            
+        	<TextView
+     			android:id="@+id/changefromdisplay"
+       			android:layout_width="fill_parent"
+       			android:layout_height="fill_parent"
+       			android:layout_weight="29"
+       			android:textSize="38dip"
+       			android:background="#898989"
+       			android:singleLine="true"
+       			android:textColor="#404000"
+       			android:gravity="center_vertical|end"
+       			android:text="0" />
+            	
+        	<TextView
+      			android:id="@+id/equal"
+       			android:layout_width="fill_parent"
+       			android:layout_height="fill_parent"
+       			android:layout_weight="42"
+       			android:textSize="20dip"
+       			android:background="#aaaaaa"
+       			android:singleLine="true"
+       			android:textColor="#404000"
+       			android:text="@string/changeresult" />
+            
+        	<TextView
+       			android:id="@+id/changetodisplay"
+       			android:layout_width="fill_parent"
+       			android:layout_height="fill_parent"
+       			android:layout_weight="29"
+       			android:textSize="38dip"
+       			android:background="#898989"
+       			android:singleLine="true"
+       			android:textColor="#404000"
+       			android:gravity="center_vertical|end"
+    			android:text="0" />
+            
+    	</LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        
+        <TableRow
+        	android:id="@+id/tableRow1"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content" >
+
+        	<Button 
+            	android:id="@+id/changefrom7"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="7"/>
+        
+        	<Button 
+            	android:id="@+id/changefrom8"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="8"/>
+        
+        	<Button 
+            	android:id="@+id/changefrom9"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="9"/>
+
+    	</TableRow>
+
+    	<TableRow
+        	android:id="@+id/tableRow2"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content" >
+        
+        	<Button 
+            	android:id="@+id/changefrom4"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="4"/>
+        
+        	<Button 
+            	android:id="@+id/changefrom5"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="5"/>
+        
+        	<Button 
+            	android:id="@+id/changefrom6"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="6"/>
+        
+    	</TableRow>
+
+    	<TableRow
+        	android:id="@+id/tableRow3"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content" >
+        
+        	<Button 
+            	android:id="@+id/changefrom1"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="1"/>
+        
+        	<Button 
+            	android:id="@+id/changefrom2"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="2"/>
+        
+        	<Button 
+        	    android:id="@+id/changefrom3"
+        	    android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="3"/>
+        
+    	</TableRow>
+
+    	<TableRow
+        	android:id="@+id/tableRow4"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content" >
+        
+        	<Button 
+            	android:id="@+id/changefrom0"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="0"/>
+        	
+        	<Button 
+            android:id="@+id/changefrompoint"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dip"
+     		android:layout_weight="1"
+            android:text="."/>
+        
+        	<Button 
+            	android:id="@+id/changefromAC"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:textSize="25dip"
+     			android:layout_weight="1"
+            	android:text="AC"/>
+        
+    	</TableRow>
+        
+    </LinearLayout>
+    
+</LinearLayout>
