@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,9 @@ public class MiniCalMain extends Activity {
 	private Button number10;
 	private Button button[] = new Button[5];
 	private Button buttonAC;
-	private Button buttonC;
+	private Button buttonBack;
+	private Button buttonLK;
+	private Button buttonRK;
 	private TextView display;
 	private TextView num1T;
 	private TextView displayNumT;
@@ -46,6 +49,7 @@ public class MiniCalMain extends Activity {
 	static double n1,n2,k=1,result;
 	static int point=0,act,showNum=-1;
 	static StringBuffer displayNum = new StringBuffer("0");
+	static double x6Y;
 	static boolean getTemp = false;
 	
 	@Override
@@ -61,12 +65,17 @@ public class MiniCalMain extends Activity {
 			setContentView(R.layout.minicalmain);
 			findView(false);
 		}
+		if(Build.VERSION.SDK_INT > 10) {
+			findViewById(R.id.topbar).setVisibility(View.GONE);
+		}
 		for(int i = 0; i < 10; i++) {
 			number[i].setOnClickListener(new NumberListener());
 		}
 		number10.setOnClickListener(new Number10Listener());
 		buttonAC.setOnClickListener(new ButtonACListener());
-		buttonC.setOnClickListener(new ButtonCListener());
+		buttonBack.setOnClickListener(new ButtonBackListener());
+		buttonLK.setOnClickListener(new ButtonKListener());
+		buttonRK.setOnClickListener(new ButtonKListener());
 		for(int i = 0; i < 5; i++) {
 			button[i].setOnClickListener(new ButtonListener());
 		}
@@ -124,7 +133,9 @@ public class MiniCalMain extends Activity {
 		button[4] = (Button)findViewById(R.id.button4);
 		button[0] = (Button)findViewById(R.id.button0);
 		buttonAC = (Button)findViewById(R.id.buttonAC);
-		buttonC = (Button)findViewById(R.id.buttonC);
+		buttonBack = (Button)findViewById(R.id.buttonBack);
+		buttonLK = (Button)findViewById(R.id.buttonLK);
+		buttonRK = (Button)findViewById(R.id.buttonRK);
 		display = (TextView)findViewById(R.id.display);
 		num1T = (TextView)findViewById(R.id.num1);
 		displayNumT = (TextView)findViewById(R.id.displaynum);
@@ -223,7 +234,7 @@ public class MiniCalMain extends Activity {
 		if(act == 0 && n2 != 0) {
 			clear(1);
 		}
-		if(point == 0) {
+		/**if(point == 0) {
 			n1 = n1 * 10 + n;
 		}
 		else {
@@ -231,8 +242,9 @@ public class MiniCalMain extends Activity {
 			n1 = n1 * 10 + n;
 			k = k * 10.0;
 			n1 = n1 / k;
-		}
+		}*/
 		displayNum.append(n);
+		n1 = Double.parseDouble(displayNum.toString());
 		if(point == 0 && act != 0 && displayNum.length() == 2 && n1 < 10 && n != 0) {
 			displayNum = new StringBuffer("");
 			displayNum.append(n);
@@ -266,35 +278,45 @@ public class MiniCalMain extends Activity {
 		}
 		
 	}
-		
-	class ButtonCListener implements OnClickListener {
-			
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			if(n1 == 0 || (n1 != 0 && n2 != 0 && result != 0 && act != 0)) {
-				clear(1);
-			}
-			else {
-				clear(0);
-			}
-			
-		}
-		
-	}
 	
 	private void clear(int n) {
 		n1 = 0;
 		k = 1;
 		point = 0;
 		displayNum = new StringBuffer("0");
-		if(n == 1) {
-			n2 = 0;
-			act = 0;
-			result = 0;
-		}
+		n2 = 0;
+		act = 0;
+		result = 0;
+		x6Y = 0;
 		showNumNow();
 		displayNew();
+	}
+	
+	class ButtonBackListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			displayNum.deleteCharAt(displayNum.length() - 1);
+			n1 = Double.parseDouble(displayNum.toString());
+			displayNew();
+		}
+		
+	}
+	
+	class ButtonKListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId())
+			{
+			case R.id.buttonLK : displayNum.append('(');break;
+			case R.id.buttonRK : displayNum.append(')');break;
+			}
+			displayNew();
+		}
+		
 	}
 	
 	class ButtonListener implements OnClickListener {
@@ -338,6 +360,9 @@ public class MiniCalMain extends Activity {
 	}
 	
 	private void cal() {
+		if(x6Y != 0) {
+			n1 = functionX6Y(n1);
+		}
 		switch(act)
 		{
 		case 1 : result = n2 + n1;displayResult();break;
@@ -354,7 +379,7 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			double pi = 3.1415926535897935384626;
+			double pi = 3.1415926535897932384626;
 			switch(v.getId()) {
 			case R.id.buttonsin : n1 = Math.sin(n1 / 180 * pi);break;
 			case R.id.buttoncos : n1 = Math.cos(n1 / 180 * pi);break;
@@ -363,11 +388,11 @@ public class MiniCalMain extends Activity {
 			case R.id.buttonln : n1 = Math.log(n1);break;
 			case R.id.buttonlog : n1 = Math.log10(n1);break;
 			case R.id.buttonx62 : n1 = Math.pow(n1,2);break;
-			case R.id.buttonx6y : n1 = functionX6Y(n1);break;
+			case R.id.buttonx6y : functionX6Y(n1);break;
 			case R.id.buttonexp : n1 = Math.exp(n1);break;
 			case R.id.buttonpi : n1 = pi;break;
 			case R.id.buttongh : n1 = Math.sqrt(n1);break;
-			case R.id.buttonbh : n1 = n1 / 100;break;
+			case R.id.buttonbh : n1 = n1 / 100;cal();break;
 			}
 			displayNum = new StringBuffer("");
 			displayNum.append(n1);
@@ -378,16 +403,28 @@ public class MiniCalMain extends Activity {
 	
 	private double functionJC(double num)
 	{
+		num = gamma(num + 1);
 		return num;
 	}
 	
 	private double functionX6Y(double num)
 	{
-		return num;
+		if(x6Y == 0) {
+			x6Y = num;
+			n1 = 0;
+			return 0;
+		}
+		else
+		{
+			double resu = x6Y;
+			for(int i = 0; i < num; i++) {
+				resu = resu * x6Y;
+			}
+			return resu;
+		}
 	}
-	
 	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
-	double gamma(double z)
+	private double gamma(double z)
 	{
 		double pi = 3.1415926535897932384626;
 	    double ret = 0.0;
@@ -398,41 +435,7 @@ public class MiniCalMain extends Activity {
 	          *Math.exp(-(z+5.5));
 	    return ret;
 	}
-	static int nni[] =
-	{
-	    0, 1, 2, 3, 4, 5, 6,100
-	};
-	static double nnx[] =
-	{
-	    0.1, 1.2, 2.5, 3.4, 4.0001, 5.99999999, 6.2222222, 3.5555, 5
-	};
-	void JCmain()
-	{
-	    double n = 5;
-	    double ret = 0;
-	 
-	    for (int i=0; i < 8; ++i)
-	    {
-	        n = nni[i];
-	        ret = gamma(n + 1);
-	        System.out.println(ret);//printf("%g! :%.20g /n", n, ret);
-	    }
-	     
-	    for (int i=0; i < 9; ++i)
-	    {
-	        n = nnx[i];
-	        ret = gamma(n + 1);
-	        //printf("%g! :%.20g /n", n, ret);
-	    }
-	    
-	    for (int i=0; i < 9; ++i)
-	    {
-	        n = -nnx[i];
-	        ret = gamma(n + 1);
-	        //printf("%g! :%.20g /n", n, ret);
-	    }
-	}
-	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
+	//以上阶乘代码摘自网络--------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {

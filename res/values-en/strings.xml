@@ -5,7 +5,7 @@
     <string name="menu_about">About</string>
     <string name="menu_exit">Exit</string>
     <string name="AboutTitle">Mini Cal</string>
-    <string name="AboutMsg">PaperAirPlane DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无~急需美工啊~\n急需改进啊~double类型精度有问题啊~问题大大的呢~不信就自己算121.1﹢0.1然后看结果~目前需要改进啊改进~要把double型给去掉~求帮助~\n---------------------------------\n简洁计算器 ver0.7.4</string>
+    <string name="AboutMsg">PaperAirPlane DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无~急需美工啊~\n急需改进啊~double类型精度有问题啊~问题大大的呢~不信就自己算121.1﹢0.1然后看结果~目前需要改进啊改进~要把double型给去掉~求帮助~\n---------------------------------\n简洁计算器 ver0.8.0</string>
     <string name="AboutConfirm">OK</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做这个的很无聊唉~装了这个软件还看关于信息的都什么心态？赶紧来一起放风筝吧~</string>
     <string name="AboutHome">Let\'s Fly Kite</string>
@@ -21,7 +21,7 @@
     <string name="menu_musicshare">Music Share</string>
     <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
     <string name="openMusicShare">来人，捉虫！</string>
-    <string name="VersionName">0.7.4</string>
+    <string name="VersionName">0.9.0</string>
     <string name="menu_minicalNumberSystem">Number System</string>
     <string name="menu_minicalChange">Unit Conversions</string>
     <string name="menu_minicalback">Back</string>
@@ -30,10 +30,74 @@
     <string name="changeresult8">Oct:</string>
     <string name="changeresult10">Dec:</string>
     <string name="changeresult16">Hex:</string>
-    <string name="changenotfrom16error">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
+    <string name="changechoose2">您选择了输入二进制数</string>
+    <string name="changechoose8">您选择了输入八进制数</string>
+    <string name="changechoose10">您选择了输入十进制数</string>
+    <string name="changechoose16">您选择了输入十六进制数</string>
+    <string name="changenotfromerror">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
+    <string name="changeoverflowerror">您输入的数太大了~溢出了哦~清零后再输入吧~</string>
     <string name="SpillOverFrom8">Spillover！（当八进制大于1777777时转换为二进制后long型变量溢出）</string>
     <string name="SpillOverFrom10">Spillover！（当八进制大于524287时转换为二进制后long型变量溢出）</string>
     <string name="SpillOverFrom16">Spillover！（当八进制大于7FFFF时转换为二进制后long型变量溢出）</string>
+    <string-array name="changetype">
+        <item>长度</item>
+        <item>面积</item>
+        <item>体积</item>
+    </string-array>
+    <string-array name="changelength">
+        <item>埃米</item>
+        <item>纳米</item>
+        <item>微米</item>
+        <item>毫米</item>
+        <item>厘米</item>
+        <item>分米</item>
+        <item>米</item>
+        <item>千米/公里</item>
+        <item>英寸</item>
+        <item>英尺</item>
+        <item>码</item>
+        <item>英寻</item>
+        <item>弗隆</item>
+        <item>英里</item>
+        <item>海里</item>
+    </string-array>
+    <string-array name="changearea">
+        <item>平方毫米</item>
+        <item>平方厘米</item>
+        <item>平方分米</item>
+        <item>平方米</item>
+        <item>公亩</item>
+        <item>公顷</item>
+        <item>平方千米</item>
+        <item>平方英寸</item>
+        <item>平方英尺</item>
+        <item>平方码</item>
+        <item>平方竿</item>
+        <item>英亩</item>
+        <item>平方英里</item>
+    </string-array>
+    <string-array name="changevolume">
+        <item>立方毫米</item>
+        <item>立方厘米</item>
+        <item>毫升</item>
+        <item>厘升</item>
+        <item>分升</item>
+        <item>立方分米</item>
+        <item>升</item>
+        <item>公石/百升</item>
+        <item>立方米</item>
+        <item>茶匙</item>
+        <item>液盎司</item>
+        <item>杯</item>
+        <item>桶</item>
+        <item>亩英尺</item>
+        <item>没加仑</item>
+        <item>英加仑</item>
+        <item>立方英寸</item>
+        <item>立方英尺</item>
+        <item>立方英尺</item>
+        <item>立方码</item>
+    </string-array>
     
 
 </resources>

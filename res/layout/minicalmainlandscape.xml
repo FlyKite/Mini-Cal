@@ -1,8 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#999999"
+    android:background="@drawable/backgroundland"
     android:orientation="horizontal" >
+    
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@drawable/topbarland"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:background="@drawable/topbarland"
+        	android:orientation="vertical" >
+            
+            <TextView
+            	android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:textColor="#ffffff"
+            	android:textSize="25sp"
+            	android:gravity="center_horizontal"
+            	android:text="@string/app_nameLand" />
+            
+        </LinearLayout>
+        
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -14,7 +45,7 @@
         	android:id="@+id/display"
         	android:layout_width="match_parent"
         	android:layout_height="wrap_content"
-        	android:textSize="38dip"
+        	android:textSize="38sp"
         	android:background="#898989"
         	android:singleLine="true"
         	android:textColor="#404000"
@@ -32,7 +63,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="sin" />
                 
                 <Button
@@ -40,7 +71,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="cos" />
                 
                 <Button
@@ -48,7 +79,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="tan" />
                 
                 <Button
@@ -56,7 +87,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="n!" />
 
             </TableRow>
@@ -68,7 +99,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="ln" />
                 
                 <Button
@@ -76,7 +107,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="log" />
                 
                 <Button
@@ -84,7 +115,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="x²" />
                 
                 <Button
@@ -92,7 +123,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="x^y" />
 
             </TableRow>
@@ -104,7 +135,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="exp" />
                 
                 <Button
@@ -112,7 +143,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="π" />
                 
                 <Button
@@ -120,7 +151,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="√" />
                 
                 <Button
@@ -128,7 +159,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20dip"
+                    android:textSize="20sp"
                     android:text="％" />
 
             </TableRow>
@@ -195,35 +226,35 @@
                 android:id="@+id/number7"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="7" />
 
             <Button
                 android:id="@+id/number4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="4" />
 
             <Button
                 android:id="@+id/number1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="1" />
 
             <Button
                 android:id="@+id/number0"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="0" />
 
             <Button
                 android:id="@+id/buttonAC"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="AC" />
 
         </LinearLayout>
@@ -238,36 +269,36 @@
                 android:id="@+id/number8"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="8" />
 
             <Button
                 android:id="@+id/number5"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="5" />
 
             <Button
                 android:id="@+id/number2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="2" />
 
             <Button
                 android:id="@+id/number10"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="." />
-
+            
             <Button
-                android:id="@+id/buttonC"
+                android:id="@+id/buttonBack"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
-                android:text="C" />
+                android:textSize="25sp"
+                android:text="←" />
 
         </LinearLayout>
 
@@ -281,29 +312,36 @@
                 android:id="@+id/number9"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="9" />
 
             <Button
                 android:id="@+id/number6"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="6" />
 
             <Button
                 android:id="@+id/number3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="3" />
 
             <Button
                 android:id="@+id/button0"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="=" />
+            
+            <Button
+                android:id="@+id/buttonLK"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="(" />
 
         </LinearLayout>
 
@@ -317,29 +355,37 @@
                 android:id="@+id/button1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="+" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="-" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="×" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dip"
+                android:textSize="25sp"
                 android:text="÷" />
+            
+            <Button
+                android:id="@+id/buttonRK"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text=")" />
+            
         </LinearLayout>
         
     </LinearLayout>

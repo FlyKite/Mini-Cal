@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,18 +25,12 @@ public class MiniCalNumberSystem extends Activity {
 	private Button changeButtonOct;
 	private Button changeButtonDec;
 	private Button changeButtonHex;
-	private TextView changeResult1;
-	private TextView changeResult2;
-	private TextView changeResult3;
-	private TextView changeNumLongDis;
-	private TextView changeFromcniDis;
-	private TextView changeShowNum;
+	private TextView changeResultDis[] = new TextView[17];
 	
-	char changeNum[] = new char[15];
-	char changeResult16[] = new char[15];
+	StringBuffer changeNum = new StringBuffer();
+	StringBuffer changeResult[] = new StringBuffer[17];
 	String changeFromD[] = new String[17];
-	int changeFrom=10,cni=0,showNum = -1;
-	long changeNumLong,changeResult[] = new long[3];
+	int changeFrom = 10;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +42,13 @@ public class MiniCalNumberSystem extends Activity {
 		else {
 			setContentView(R.layout.minicalnumbersystem);
 		}
-		findView();
-		if(changeNum[0] != 0) {
-			displayNew();
+		if(Build.VERSION.SDK_INT > 10) {
+			findViewById(R.id.topbar).setVisibility(View.GONE);
 		}
+		findView();
+		changeResultDis[changeFrom].setVisibility(View.GONE);
+		changeNum.append('0');
+		displayNew();
 		changeFromD[2] = "Bin";
 		changeFromD[8] = "Oct";
 		changeFromD[10] = "Dec";
@@ -59,6 +57,7 @@ public class MiniCalNumberSystem extends Activity {
 		for(int i = 0; i < 16; i++) {
 			changeNumber[i].setOnClickListener(new ChangeNumberListener());
 		}
+		setChangeButtonAvailable(changeFrom);
 		changeButtonBin.setOnClickListener(new ChangeButtonListener());
 		changeButtonOct.setOnClickListener(new ChangeButtonListener());
 		changeButtonDec.setOnClickListener(new ChangeButtonListener());
@@ -89,217 +88,102 @@ public class MiniCalNumberSystem extends Activity {
 		changeButtonOct = (Button)findViewById(R.id.changebuttonoct);
 		changeButtonDec = (Button)findViewById(R.id.changebuttondec);
 		changeButtonHex = (Button)findViewById(R.id.changebuttonhex);
-		changeResult1 = (TextView)findViewById(R.id.changeresult1);
-		changeResult2 = (TextView)findViewById(R.id.changeresult2);
-		changeResult3 = (TextView)findViewById(R.id.changeresult3);
-		changeNumLongDis = (TextView)findViewById(R.id.changenumlongdis);
-		changeFromcniDis = (TextView)findViewById(R.id.changefromcnidis);
-		changeShowNum = (TextView)findViewById(R.id.changeshownum);
-	}
-	
-	private void changeError(int n) {
-		Toast.makeText(MiniCalNumberSystem.this, getString(R.string.changenotfrom16error), Toast.LENGTH_LONG).show();
+		changeResultDis[2] = (TextView)findViewById(R.id.changeresult2);
+		changeResultDis[8] = (TextView)findViewById(R.id.changeresult8);
+		changeResultDis[10] = (TextView)findViewById(R.id.changeresult10);
+		changeResultDis[16] = (TextView)findViewById(R.id.changeresult16);
 	}
 	
 	private void displayNew() {
-		changeDisplay.setText("" + changeNum[0] + changeNum[1] + changeNum[2] + changeNum[3] + changeNum[4] + changeNum[5] + changeNum[6] + changeNum[7] + changeNum[8] + changeNum[9] + changeNum[10] + changeNum[11] + changeNum[12] + changeNum[13] + changeNum[14]);
+		changeDisplay.setText("" + changeNum);
 		change();
-		switch(changeFrom) {
-		case 2 : changeFrom2();break;
-		case 8 : changeFrom8();break;
-		case 10 : changeFrom10();break;
-		case 16 : changeFrom16();break;
-		}
-		showNumNow();
-	}
-	
-	private void showNumNow() {
-		if(showNum > 0) {
-			boolean shownumb = true;
-			changeNumLongDis.setText("changenumlong = " + changeNumLong);
-			changeFromcniDis.setText("changefrom = " + changeFrom + "      cni = " + cni);
-			changeShowNum.setText("shownum = " + shownumb);
-		}
-		else {
-			changeNumLongDis.setText("");
-			changeFromcniDis.setText("");
-			changeShowNum.setText("");			
-		}
-		
-	}
-	
-	private void changeFrom2() {
-		changeResult1.setText(getString(R.string.changeresult8) + changeResult[0]);
-		changeResult2.setText(getString(R.string.changeresult10) + changeResult[1]);
-		changeResult3.setText(getString(R.string.changeresult16) + changeResult16[0] + changeResult16[1] + changeResult16[2] + changeResult16[3] + changeResult16[4] + changeResult16[5] + changeResult16[6] + changeResult16[7] + changeResult16[8] + changeResult16[9] + changeResult16[10] + changeResult16[11] + changeResult16[12] + changeResult16[13] + changeResult16[14]);
-	}
-	
-	private void changeFrom8() {
-		if(changeNumLong < 1777778) {
-			changeResult1.setText(getString(R.string.changeresult2) + changeResult[0]);
-		}
-		else {
-			changeResult1.setText(getString(R.string.changeresult2) + getString(R.string.SpillOverFrom8));
-		}
-		changeResult2.setText(getString(R.string.changeresult10) + changeResult[1]);
-		changeResult3.setText(getString(R.string.changeresult16) + changeResult16[0] + changeResult16[1] + changeResult16[2] + changeResult16[3] + changeResult16[4] + changeResult16[5] + changeResult16[6] + changeResult16[7] + changeResult16[8] + changeResult16[9] + changeResult16[10] + changeResult16[11] + changeResult16[12] + changeResult16[13] + changeResult16[14]);
-	}
-	
-	private void changeFrom10() {
-		if(changeNumLong < 524288) {
-			changeResult1.setText(getString(R.string.changeresult2) + changeResult[0]);
-		}
-		else {
-			changeResult1.setText(getString(R.string.changeresult2) + getString(R.string.SpillOverFrom10));
-		}
-		changeResult2.setText(getString(R.string.changeresult8) + changeResult[1]);
-		changeResult3.setText(getString(R.string.changeresult16) + changeResult16[0] + changeResult16[1] + changeResult16[2] + changeResult16[3] + changeResult16[4] + changeResult16[5] + changeResult16[6] + changeResult16[7] + changeResult16[8] + changeResult16[9] + changeResult16[10] + changeResult16[11] + changeResult16[12] + changeResult16[13] + changeResult16[14]);
-	}
-	
-	private void changeFrom16() {
-		if(changeResult[2] < 524288) {
-			changeResult1.setText(getString(R.string.changeresult2) + changeResult[0]);
-		}
-		else {
-			changeResult1.setText(getString(R.string.changeresult2) + getString(R.string.SpillOverFrom16));
-		}
-		changeResult2.setText(getString(R.string.changeresult8) + changeResult[1]);
-		changeResult3.setText(getString(R.string.changeresult10) + changeResult[2]);
+		changeResultDis[2].setText(getString(R.string.changeresult2) + changeResult[2]);
+		changeResultDis[8].setText(getString(R.string.changeresult8) + changeResult[8]);
+		changeResultDis[10].setText(getString(R.string.changeresult10) + changeResult[10]);
+		changeResultDis[16].setText(getString(R.string.changeresult16) + changeResult[16]);
 	}
 	
 	private void change() {
-		if(changeFrom <= 10) {
-			chartolong();
-		}
-		switch(changeFrom) {
-		case 2 : changeResult[0] = f10t8(f2t10(changeNumLong));changeResult[1] = f2t10(changeNumLong);f10t16(f2t10(changeNumLong));break;
-		case 8 : changeResult[0] = f10t2(f8t10(changeNumLong));changeResult[1] = f8t10(changeNumLong);f10t16(f8t10(changeNumLong));break;
-		case 10 : changeResult[0] = f10t2(changeNumLong);changeResult[1] = f10t8(changeNumLong);f10t16(changeNumLong);break;
-		case 16 : changeResult[0] = f10t2(f16t10());changeResult[1] = f10t8(f16t10());changeResult[2] = f16t10();break;
+		if(fromTo10(changeNum, changeFrom) == true) {
+			from10To(changeResult[10], 2);
+			from10To(changeResult[10], 8);
+			from10To(changeResult[10], 16);
 		}
 	}
 	
-	//------------以下代码来自我之前用C语言写的进制转换，做了少许改动------------
-	
-	private void chartolong() {
-		changeNumLong = 0;
-		int i;
-		long m;
-		for(i = 0;i < 15 && changeNum[i] != 0; i++) {
-			if(changeNum[i] >= 48 + changeFrom) {
-				changeError(1);
-				cni = 16;
-				break;
+	public void from10To(StringBuffer changeFN, int to) {
+		StringBuffer changeFromNum = new StringBuffer();
+		changeFromNum.append(changeFN.toString());
+		long changeFromLong = 0;
+		changeFromLong = Long.parseLong(changeFromNum.toString());
+		changeResult[to] = new StringBuffer("");
+		if(changeFromLong == 0) {
+			changeResult[to].append(0);
+		}
+		while(changeFromLong != 0) {
+			int qiuyu;
+			qiuyu = (int) (changeFromLong % to);
+			if(qiuyu > 9) {
+				qiuyu += 7;
 			}
-		}
-		for(m = 1, i--; i >= 0 && i < 15 && cni < 16; i--)
-		{
-			changeNumLong = changeNumLong + (changeNum[i] - '0') * m;
-			m = m * 10;
-		}
-		if(cni > 15) {
-			changeNumLong = 0;
+			changeResult[to].insert(0, (char)(qiuyu + 48));
+			changeFromLong /= to;
 		}
 	}
 	
-	private long f2t10(long num)
-	{
-		long m=1,s=0;
-		while(num!=0)
-		{
-			if(num%10>1) changeError(2);
-			s=s+num%2*m;
-			num=num/10;
-			m=m*2;
+	public boolean fromTo10(StringBuffer changeFN, int from) {
+		StringBuffer changeFromNum = new StringBuffer();
+		changeFromNum.append(changeFN.toString());
+		long changeResult10 = 0, k = 1;
+		char lastChar;
+		changeResult[10] = new StringBuffer("");
+		while(changeFromNum.length() != 0) {
+			lastChar = changeFromNum.charAt(changeFromNum.length() - 1);
+			int lastNum;
+			if((int)(lastChar) > 58) {
+				lastNum = (int)lastChar - 55;
+			}
+			else {
+				lastNum = (int)lastChar - 48;
+			}
+			if(lastNum >= from) {
+				Toast.makeText(MiniCalNumberSystem.this, getString(R.string.changenotfromerror), Toast.LENGTH_LONG).show();
+				returnFalse();
+				return false;
+			}
+			changeResult10 += lastNum * k;
+			k = k * from;
+			changeFromNum.deleteCharAt(changeFromNum.length() - 1);
 		}
-		return s;
+		if(changeResult10 < 0) {
+			Toast.makeText(MiniCalNumberSystem.this, getString(R.string.changeoverflowerror), Toast.LENGTH_LONG).show();
+			returnFalse();
+			return false;
+		}
+		changeResult[10].append(changeResult10);
+		return true;
 	}
 	
-	private long f8t10(long num)
-	{
-		long m=1,s=0;
-		while(num!=0)
-		{
-			if(num%10>7) changeError(8);
-			s=s+num%10*m;
-			num=num/10;
-			m=m*8;
-		}
-		return s;
+	private void returnFalse() {
+		setChangeButtonAvailable(0);
+		changeResult[2] = new StringBuffer("");
+		changeResult[8] = new StringBuffer("");
+		changeResult[10] = new StringBuffer("");
+		changeResult[16] = new StringBuffer("");
 	}
-	
-	private long f16t10()
-	{
-		int i;
-		long m,s=0;
-		for(i=0;i<15&&changeNum[i]!=0;i++);
-		for(m=1,i--;i>=0;i--)
-		{
-			if(changeNum[i]>=65&&changeNum[i]<=90) s=s+(changeNum[i]-55)*m;
-			else s=s+(changeNum[i]-48)*m;
-			m=m*16;
-		}
-		return s;
-	}
-	
-	private long f10t2(long num)
-	{
-		long s=0,m=1;
-		while(num!=0)
-		{
-			s=s+num%2*m;
-			num=num/2;
-			m=m*10;
-		}
-		return s;
-	}
-	
-	private long f10t8(long num)
-	{
-		long s=0,m=1;
-		while(num!=0)
-		{
-			s=s+num%8*m;
-			num=num/8;
-			m=m*10;
-		}
-		return s;
-	}
-	
-	private void f10t16(long num)
-	{
-		int i;
-		long c=num;
-		for(i=0;c!=0;i++)
-			c=c/16;
-		if(i==0) {
-			changeResult16[i--]='0';
-		}
-		else {
-			changeResult16[i--]=0;
-		}
-		for(;i>=0;i--)
-		{
-			if(num%16>9) changeResult16[i]=(char) ('A'+num%16-10);
-			else changeResult16[i]=(char) ('0'+num%16);
-			num=num/16;
-		}
-	}
-	
-	//------------以上代码------------
 	
 	class ChangeButtonACListener implements OnClickListener {
 		
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			changeNum[0] = '0';
-			for(int i = 1; i < 15; i++) {
-				changeNum[i] = 0;
-				changeResult16[i] = 0;
-			}
-			cni = 0;
-			changeNumLong = 0;
+			changeNum = new StringBuffer("");
+			changeNum.append(0);
+			changeResult[2] = new StringBuffer("");
+			changeResult[8] = new StringBuffer("");
+			changeResult[10] = new StringBuffer("");
+			changeResult[16] = new StringBuffer("");
+			setChangeButtonAvailable(changeFrom);
 			displayNew();
 		}
 		
@@ -333,25 +217,11 @@ public class MiniCalNumberSystem extends Activity {
 	}
 
 	private void changeNumberListener(int n) {
-		if(cni < 2 && changeNum[0] == '0') {
-			changeNum[0] = 0;
-			cni = 0;
+		if(changeNum.length() < 2 && (int)changeNum.charAt(0) == 48) {
+			changeNum.deleteCharAt(0);
 		}
-		if(cni < 15) {
-			if(changeFrom == 16) {
-				changeNum[cni++] = (char) (48 + n);
-			}
-			else if(changeFrom == 10 && n < 10) {
-				changeNum[cni++] = (char) (48 + n);
-			}
-			else if(changeFrom == 8 && n < 8) {
-				changeNum[cni++] = (char) (48 + n);
-			}
-			else if(changeFrom == 2 && n < 2) {
-				changeNum[cni++] = (char) (48 + n);
-			}
-			displayNew();
-		}
+		changeNum.append((char)(48 + n));
+		displayNew();
 	}
 	
 	class ChangeButtonListener implements OnClickListener {
@@ -361,10 +231,10 @@ public class MiniCalNumberSystem extends Activity {
 			// TODO Auto-generated method stub
 			String choose = new String();
 			switch(v.getId()) {
-			case R.id.changebuttonbin : changefromListener(2);choose = "您选择了输入二进制数";break;
-			case R.id.changebuttonoct : changefromListener(8);choose = "您选择了输入八进制数";break;
-			case R.id.changebuttondec : changefromListener(10);choose = "您选择了输入十进制数";break;
-			case R.id.changebuttonhex : changefromListener(16);choose = "您选择了输入十六进制数";break;
+			case R.id.changebuttonbin : changefromListener(2);choose = getText(R.string.changechoose2).toString();break;
+			case R.id.changebuttonoct : changefromListener(8);choose = getText(R.string.changechoose8).toString();break;
+			case R.id.changebuttondec : changefromListener(10);choose = getText(R.string.changechoose10).toString();break;
+			case R.id.changebuttonhex : changefromListener(16);choose = getText(R.string.changechoose16).toString();break;
 			}
 			Toast.makeText(MiniCalNumberSystem.this, choose, Toast.LENGTH_SHORT).show();
 		}
@@ -372,21 +242,27 @@ public class MiniCalNumberSystem extends Activity {
 	}
 	
 	private void changefromListener(int n) {
+		changeResultDis[changeFrom].setVisibility(View.VISIBLE);
 		changeFrom = n;
+		setChangeButtonAvailable(changeFrom);
+		changeResultDis[changeFrom].setVisibility(View.GONE);
 		changeFromDisplay.setText("" + changeFromD[changeFrom]);
 		displayNew();
+	}
+	
+	private void setChangeButtonAvailable(int to) {
+		for(int i = 0; i < 16; i++) {
+			changeNumber[i].setClickable(false);
+		}
+		for(int i = 0; i < to; i++) {
+			changeNumber[i].setClickable(true);
+		}
 	}
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);
-		/**if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			setContentView(R.layout.minicalnumbersystemlandscape);
-		}
-		else {
-			setContentView(R.layout.minicalnumbersystem);
-		}*/
 		onCreate(null);
 	}
 
@@ -404,7 +280,6 @@ public class MiniCalNumberSystem extends Activity {
 		switch(item.getItemId()) {
 		case R.id.menu_exit : finish();break;
 		case R.id.menu_about : openAbout();break;
-		case R.id.menu_shownum : showNum = -showNum;showNumNow();if(showNum > 0 ) {item.setTitle(R.string.menu_shownumoff);}else {item.setTitle(R.string.menu_shownumon);}break;
 		case R.id.menu_musicshare : MusicShare();break;
 		case R.id.menu_help : openHelp();break;
 		case 1 : goBack();break;

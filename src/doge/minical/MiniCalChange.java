@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,9 @@ public class MiniCalChange extends Activity {
 		}
 		else {
 			setContentView(R.layout.minicalchange);
+		}
+		if(Build.VERSION.SDK_INT > 10) {
+			findViewById(R.id.topbar).setVisibility(View.GONE);
 		}
 		findview();
 		setSpinner();

@@ -2,10 +2,11 @@
 <resources>
 
     <string name="app_name">简洁计算器</string>
+    <string name="app_nameLand">简\n洁\n计\n算\n器</string>
     <string name="menu_about">关于</string>
     <string name="menu_exit">退出</string>
     <string name="AboutTitle">简洁计算器</string>
-    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无~急需美工啊~\n急需改进啊~double类型精度有问题啊~问题大大的呢~不信就自己算121.1﹢0.1然后看结果~目前需要改进啊改进~要把double型给去掉~求帮助~\n---------------------------------\n简洁计算器 ver0.7.4</string>
+    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无~急需美工啊~\n急需改进啊~double类型精度有问题啊~问题大大的呢~不信就自己算121.1﹢0.1然后看结果~目前需要改进啊改进~要把double型给去掉~求帮助~\n---------------------------------\n简洁计算器 ver0.8.0</string>
     <string name="AboutConfirm">确定</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做这个的很无聊唉~装了这个软件还看关于信息的都什么心态？赶紧来一起放风筝吧~</string>
     <string name="AboutHome">一起放风筝吧~</string>
@@ -21,16 +22,23 @@
     <string name="menu_musicshare">纸飞机音乐分享</string>
     <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
     <string name="openMusicShare">来人，捉虫！</string>
-    <string name="VersionName">0.7.4</string>
+    <string name="VersionName">0.8.0</string>
     <string name="menu_minicalNumberSystem">进制转换</string>
     <string name="menu_minicalChange">单位转换</string>
+    <string name="menu_minicalNumberSystemLand">进\n制\n转\n换</string>
+    <string name="menu_minicalChangeLand">单\n位\n转\n换</string>
     <string name="menu_minicalback">返回</string>
     <string name="changeresult">转换结果：</string>
     <string name="changeresult2">二  进  制：</string>
     <string name="changeresult8">八  进  制：</string>
     <string name="changeresult10">十  进  制：</string>
     <string name="changeresult16">十六进制：</string>
-    <string name="changenotfrom16error">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
+    <string name="changechoose2">您选择了输入二进制数</string>
+    <string name="changechoose8">您选择了输入八进制数</string>
+    <string name="changechoose10">您选择了输入十进制数</string>
+    <string name="changechoose16">您选择了输入十六进制数</string>
+    <string name="changenotfromerror">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
+    <string name="changeoverflowerror">您输入的数太大了~溢出了哦~清零后再输入吧~</string>
     <string name="SpillOverFrom8">溢出！（当八进制大于1777777时转换为二进制后long型变量溢出）</string>
     <string name="SpillOverFrom10">溢出！（当十进制大于524287时转换为二进制后long型变量溢出）</string>
     <string name="SpillOverFrom16">溢出！（当十六进制大于7FFFF时转换为二进制后long型变量溢出）</string>
