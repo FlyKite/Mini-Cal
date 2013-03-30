@@ -1,11 +1,7 @@
 package doge.minical;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,11 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 
-public class MiniCalChange extends Activity {
+public class MiniCalChange extends MiniCalMenu {
 	private TextView changefromdisplay;
 	private TextView changetodisplay;
 	private Button changefrom[] = new Button[10];
@@ -32,7 +27,7 @@ public class MiniCalChange extends Activity {
 	private Spinner changeFrom;
 	private Spinner changeTo;
 	
-	int showNum = -1,changeTypeChose,changeFromChose,changeToChose,point = 0;
+	int changeTypeChose,changeFromChose,changeToChose,point = 0;
 	double changeFromNum,changeResult,k = 1;
 
 	@Override
@@ -63,11 +58,6 @@ public class MiniCalChange extends Activity {
 	private void displayNew() {
 		changefromdisplay.setText("" + changeFromNum);
 		changetodisplay.setText("" + changeResult);
-		showNumNow();
-	}
-	
-	private void showNumNow() {
-		
 	}
 	
 	private void findview() {
@@ -234,88 +224,12 @@ public class MiniCalChange extends Activity {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
 		case R.id.menu_exit : finish();break;
-		case R.id.menu_about : openAbout();break;
-		case R.id.menu_shownum : showNum = -showNum;showNumNow();if(showNum > 0 ) {item.setTitle(R.string.menu_shownumoff);}else {item.setTitle(R.string.menu_shownumon);}break;
-		case R.id.menu_musicshare : MusicShare();break;
-		case R.id.menu_help : openHelp();break;
+		case R.id.menu_about : openAbout(MiniCalChange.this);break;
+		case R.id.menu_musicshare : MusicShare(MiniCalChange.this);break;
+		case R.id.menu_help : openHelp(MiniCalChange.this);break;
 		case 1 : goBack();break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public void openAbout() {
-		new AlertDialog.Builder(MiniCalChange.this)
-		.setTitle(R.string.AboutTitle)
-		.setMessage(R.string.AboutMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(MiniCalChange.this, R.string.AboutConfirmMsg, Toast.LENGTH_LONG).show();
-			}
-		})
-		.setNegativeButton(R.string.AboutHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	public void openHelp() {
-		new AlertDialog.Builder(MiniCalChange.this)
-		.setTitle(R.string.HelpTitle)
-		.setMessage(R.string.ChangeHelpMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.HelpHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	public void MusicShare() {
-		new AlertDialog.Builder(MiniCalChange.this)
-		.setTitle(R.string.menu_musicshare)
-		.setMessage(R.string.MusicShareMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.openMusicShare, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.MusicShareUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
 	}
 	
 	public void goBack() {

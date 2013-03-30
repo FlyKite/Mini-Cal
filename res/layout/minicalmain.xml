@@ -27,12 +27,13 @@
         
     </LinearLayout>
 
-    <TextView
+    <EditText
         android:id="@+id/display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="38sp"
         android:textColor="#404000"
+        android:focusable="false"
         android:singleLine="true"
         android:gravity="end"
         android:background="#898989"

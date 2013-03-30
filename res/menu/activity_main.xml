@@ -7,14 +7,6 @@
         android:icon="@android:drawable/ic_menu_help"
         android:enabled="true"
         android:title="@string/menu_help"/>
-
-    <item
-        android:id="@+id/menu_shownum"
-        android:orderInCategory="100" 
-        android:showAsAction="collapseActionView"
-        android:icon="@android:drawable/ic_menu_view"
-        android:enabled="true"
-        android:title="@string/menu_shownumon"/>
     
     <item
         android:id="@+id/menu_musicshare"

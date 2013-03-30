@@ -1,12 +1,6 @@
 package doge.minical;
 
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,10 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
 
-public class MiniCalMain extends Activity {
+public class MiniCalMain extends MiniCalMenu {
 	private Button number[] = new Button[10];
 	private Button number10;
 	private Button button[] = new Button[5];
@@ -25,13 +18,7 @@ public class MiniCalMain extends Activity {
 	private Button buttonBack;
 	private Button buttonLK;
 	private Button buttonRK;
-	private TextView display;
-	private TextView num1T;
-	private TextView displayNumT;
-	private TextView num2T;
-	private TextView resultT;
-	private TextView actPointKT;
-	private TextView showNumT;
+	private EditText display;
 	
 	private Button buttonsin;
 	private Button buttoncos;
@@ -46,11 +33,10 @@ public class MiniCalMain extends Activity {
 	private Button buttongh;
 	private Button buttonbh;
 
-	static double n1,n2,k=1,result;
-	static int point=0,act,showNum=-1;
-	static StringBuffer displayNum = new StringBuffer("0");
-	static double x6Y;
-	static boolean getTemp = false;
+	int act;
+	StringBuffer displayNum = new StringBuffer();
+	double x6Y;
+	boolean point = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +54,13 @@ public class MiniCalMain extends Activity {
 		if(Build.VERSION.SDK_INT > 10) {
 			findViewById(R.id.topbar).setVisibility(View.GONE);
 		}
+		if(displayNum.length() == 0) {
+			displayNum.append(" 0");
+		}
 		for(int i = 0; i < 10; i++) {
 			number[i].setOnClickListener(new NumberListener());
 		}
-		number10.setOnClickListener(new Number10Listener());
+		number10.setOnClickListener(new PointListener());
 		buttonAC.setOnClickListener(new ButtonACListener());
 		buttonBack.setOnClickListener(new ButtonBackListener());
 		buttonLK.setOnClickListener(new ButtonKListener());
@@ -93,26 +82,11 @@ public class MiniCalMain extends Activity {
 			buttongh.setOnClickListener(new FunctionButtonListener());
 			buttonbh.setOnClickListener(new FunctionButtonListener());
 		}
-		if(getTemp == true) {
-			if(n1 == 0 && result != 0) {
-				displayResult();
-			}
-			else {
-			displayNew();	
-			}
-		}
+		displayNew();
 	}
 	
 	public static void getTempSave() {
-		n1 = TempSave.getNum1();
-		n2 = TempSave.getNum2();
-		k = TempSave.getK();
-		result = TempSave.getResult();
-		point = TempSave.getPoint();
-		act = TempSave.getAct();
-		showNum = TempSave.getShowNum();
-		displayNum = TempSave.getDisplayNum();
-		getTemp = true;
+		
 	}
 
 	private void findView(boolean landScape) {
@@ -136,13 +110,7 @@ public class MiniCalMain extends Activity {
 		buttonBack = (Button)findViewById(R.id.buttonBack);
 		buttonLK = (Button)findViewById(R.id.buttonLK);
 		buttonRK = (Button)findViewById(R.id.buttonRK);
-		display = (TextView)findViewById(R.id.display);
-		num1T = (TextView)findViewById(R.id.num1);
-		displayNumT = (TextView)findViewById(R.id.displaynum);
-		num2T = (TextView)findViewById(R.id.num2);
-		resultT = (TextView)findViewById(R.id.result);
-		actPointKT = (TextView)findViewById(R.id.actpointk);
-		showNumT = (TextView)findViewById(R.id.shownum);
+		display = (EditText)findViewById(R.id.display);
 		if(landScape == true)
 		{
 			buttonsin = (Button)findViewById(R.id.buttonsin);
@@ -161,47 +129,13 @@ public class MiniCalMain extends Activity {
 	}
 
 	private void displayNew() {
-		display.setText(displayNum);
-			showNumNow();
+		display.setText("" + displayNum);
+		display.setSelection(display.length());
 	}
 	
 	private void displayResult() {
-		display.setText("" + result);
-		showNumNow();
-	}
-	
-	private void showNumNow() {
-		if(showNum > 0) {
-			char actact = ' ';
-			switch(act) {
-			case 1 :actact = '+';break;
-			case 2 :actact = '-';break;
-			case 3 :actact = '×';break;
-			case 4 :actact = '÷';break;
-			}
-			boolean pointb = false,shownumb = true;
-			if(point == 1) {
-				pointb = true;
-			}
-			else {
-				pointb = false;
-			}
-			num1T.setText("num1 = " + n1);
-			displayNumT.setText("displaynum = " + displayNum);
-			num2T.setText("num2 = " + n2);
-			resultT.setText("result = " + result);
-			actPointKT.setText("act = " + actact + "      point = " + pointb + "      k = " + k);
-			showNumT.setText("shownum = " + shownumb);
-		}
-		else {
-			num1T.setText("");
-			displayNumT.setText("");
-			num2T.setText("");
-			resultT.setText("");
-			actPointKT.setText("");
-			showNumT.setText("");			
-		}
-		
+		display.setText("" + displayNum + " = ");
+		display.setSelection(display.length());
 	}
 	
 	class NumberListener implements OnClickListener {
@@ -209,62 +143,48 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(displayNum.length() < 15) {
-				switch(v.getId()) {
-				case R.id.number1 : numberListener(1);break;
-				case R.id.number2 : numberListener(2);break;
-				case R.id.number3 : numberListener(3);break;
-				case R.id.number4 : numberListener(4);break;
-				case R.id.number5 : numberListener(5);break;
-				case R.id.number6 : numberListener(6);break;
-				case R.id.number7 : numberListener(7);break;
-				case R.id.number8 : numberListener(8);break;
-				case R.id.number9 : numberListener(9);break;
-				case R.id.number0 : if((displayNum.length() != 0 && act == 0) || ((displayNum.length() == 0 || n1 > 0 || point == 1) && act != 0)) {numberListener(0);};break;
-				}
+			switch(v.getId()) {
+			case R.id.number1 : numberListener(1);break;
+			case R.id.number2 : numberListener(2);break;
+			case R.id.number3 : numberListener(3);break;
+			case R.id.number4 : numberListener(4);break;
+			case R.id.number5 : numberListener(5);break;
+			case R.id.number6 : numberListener(6);break;
+			case R.id.number7 : numberListener(7);break;
+			case R.id.number8 : numberListener(8);break;
+			case R.id.number9 : numberListener(9);break;
+			case R.id.number0 : numberListener(0);break;
 			}
 		}
 		
 	}
 	
 	private void numberListener(int n) {
-		if(n1 == 0 && displayNum.length() == 1) {
-			displayNum = new StringBuffer("");
-		}
-		if(act == 0 && n2 != 0) {
-			clear(1);
-		}
-		/**if(point == 0) {
-			n1 = n1 * 10 + n;
+		if(displayNum.charAt(displayNum.length() - 1) == '0' 
+				&& displayNum.charAt(displayNum.length() - 2) == ' '
+				&& point == false) {
+			displayNum.deleteCharAt(displayNum.length() - 1);
+			displayNum.append(n);
 		}
 		else {
-			n1 = n1 * k;
-			n1 = n1 * 10 + n;
-			k = k * 10.0;
-			n1 = n1 / k;
-		}*/
-		displayNum.append(n);
-		n1 = Double.parseDouble(displayNum.toString());
-		if(point == 0 && act != 0 && displayNum.length() == 2 && n1 < 10 && n != 0) {
-			displayNum = new StringBuffer("");
 			displayNum.append(n);
 		}
 		displayNew();
 	}
 	
-	class Number10Listener implements OnClickListener {
+	class PointListener implements OnClickListener {
 		
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(point == 0) {
-			if(displayNum.length() == 0) {
-				displayNum.append("0");
+			if(point == false) {
+				point = true;
+				if(displayNum.charAt(displayNum.length() - 1) == ' ') {
+					displayNum.append(0);
+				}
+				displayNum.append('.');
 			}
-			displayNum.append(".");
-			point = 1;
 			displayNew();
-			}
 		}
 		
 	}
@@ -274,22 +194,12 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			clear(1);
+			displayNum = new StringBuffer();
+			displayNum.append(" 0");
+			point = false;
+			displayNew();
 		}
 		
-	}
-	
-	private void clear(int n) {
-		n1 = 0;
-		k = 1;
-		point = 0;
-		displayNum = new StringBuffer("0");
-		n2 = 0;
-		act = 0;
-		result = 0;
-		x6Y = 0;
-		showNumNow();
-		displayNew();
 	}
 	
 	class ButtonBackListener implements OnClickListener {
@@ -297,8 +207,20 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			displayNum.deleteCharAt(displayNum.length() - 1);
-			n1 = Double.parseDouble(displayNum.toString());
+			if(displayNum.length() > 2 && displayNum.charAt(displayNum.length() - 1) == ' ' && displayNum.charAt(displayNum.length() - 3) == ' ') {
+				displayNum.deleteCharAt(displayNum.length() -1);
+				displayNum.deleteCharAt(displayNum.length() -1);
+			}
+			if(displayNum.charAt(displayNum.length() - 1) == '.') {
+				point = false;
+			}
+			do {
+				displayNum.deleteCharAt(displayNum.length() - 1);
+			}
+			while(displayNum.charAt(displayNum.length() - 1) > 96 && displayNum.charAt(displayNum.length() - 1) < 98+26);
+			if(displayNum.length() == 1) {
+				displayNum.append(0);
+			}
 			displayNew();
 		}
 		
@@ -309,10 +231,10 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			switch(v.getId())
-			{
-			case R.id.buttonLK : displayNum.append('(');break;
-			case R.id.buttonRK : displayNum.append(')');break;
+			int LR = 0;
+			switch(v.getId()) {
+			case R.id.buttonLK : LR = 0;displayNum.append(" ( ");break;
+			case R.id.buttonRK : LR = 1;displayNum.append(" ) ");break;
 			}
 			displayNew();
 		}
@@ -325,52 +247,34 @@ public class MiniCalMain extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			switch(v.getId()) {
-			case R.id.button1 : button1234Listener(1);break;
-			case R.id.button2 : button1234Listener(2);break;
-			case R.id.button3 : button1234Listener(3);break;
-			case R.id.button4 : button1234Listener(4);break;
-			case R.id.button0 : cal();act = 0;clear(0);displayResult();n2 = result;break;
+			case R.id.button1 : button1234Listener(0);break;
+			case R.id.button2 : button1234Listener(1);break;
+			case R.id.button3 : button1234Listener(2);break;
+			case R.id.button4 : button1234Listener(3);break;
+			case R.id.button0 : displayResult();break;
 			}
+			
 		}
 		
 	}
 	
 	private void button1234Listener(int n) {
-		if(n2 == 0) {
-			n2 = n1;
-			n1 = 0;
-			point = 0;
-			k = 1;
-			act = n;
-			displayNum = new StringBuffer("");
+		String button1234[] = new String[4];
+		button1234[0] = " + ";
+		button1234[1] = " - ";
+		button1234[2] = " × ";
+		button1234[3] = " ÷ ";
+		if(displayNum.charAt(displayNum.length() - 1) == ' ') {
+			displayNum.deleteCharAt(displayNum.length() - 1);
+			displayNum.deleteCharAt(displayNum.length() - 1);
+			displayNum.deleteCharAt(displayNum.length() - 1);
 		}
-		else if(n1 != 0) {
-			cal();
-			n2 = result;
-			n1 = 0;
-			point = 0;
-			k = 1;
-			act = n;
-			displayNum = new StringBuffer("");
-		}
-		else {
-			act = n;
-		}
-		showNumNow();
+		displayNum.append(button1234[n]);
+		displayNew();
 	}
 	
 	private void cal() {
-		if(x6Y != 0) {
-			n1 = functionX6Y(n1);
-		}
-		switch(act)
-		{
-		case 1 : result = n2 + n1;displayResult();break;
-		case 2 : result = n2 - n1;displayResult();break;
-		case 3 : result = n2 * n1;displayResult();break;
-		case 4 : result = n2 / n1;displayResult();break;
-		case 0 : displayNew();break;
-		}
+		
 	}
 	
 	//科学计算器功能键监听器
@@ -379,23 +283,23 @@ public class MiniCalMain extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			double pi = 3.1415926535897932384626;
-			switch(v.getId()) {
-			case R.id.buttonsin : n1 = Math.sin(n1 / 180 * pi);break;
-			case R.id.buttoncos : n1 = Math.cos(n1 / 180 * pi);break;
-			case R.id.buttontan : n1 = Math.tan(n1 / 180 * pi);break;
-			case R.id.buttonjc : n1 = functionJC(n1);break;
-			case R.id.buttonln : n1 = Math.log(n1);break;
-			case R.id.buttonlog : n1 = Math.log10(n1);break;
-			case R.id.buttonx62 : n1 = Math.pow(n1,2);break;
-			case R.id.buttonx6y : functionX6Y(n1);break;
-			case R.id.buttonexp : n1 = Math.exp(n1);break;
-			case R.id.buttonpi : n1 = pi;break;
-			case R.id.buttongh : n1 = Math.sqrt(n1);break;
-			case R.id.buttonbh : n1 = n1 / 100;cal();break;
+			if(displayNum.length() == 2 && displayNum.charAt(1) == '0') {
+				displayNum.deleteCharAt(1);
 			}
-			displayNum = new StringBuffer("");
-			displayNum.append(n1);
+			switch(v.getId()) {
+			case R.id.buttonsin : displayNum.append("sin(");break;
+			case R.id.buttoncos : displayNum.append("cos(");break;
+			case R.id.buttontan : displayNum.append("tan(");break;
+			case R.id.buttonjc : displayNum.append("!");break;
+			case R.id.buttonln : displayNum.append("ln");break;
+			case R.id.buttonlog : displayNum.append("log");break;
+			case R.id.buttonx62 : displayNum.append("^2");break;
+			case R.id.buttonx6y : displayNum.append("^");break;
+			case R.id.buttonexp : displayNum.append("e");break;
+			case R.id.buttonpi : displayNum.append("π");break;
+			case R.id.buttongh : displayNum.append("√");break;
+			case R.id.buttonbh : displayNum.append("%");break;
+			}
 			displayNew();
 		}
 		
@@ -409,19 +313,7 @@ public class MiniCalMain extends Activity {
 	
 	private double functionX6Y(double num)
 	{
-		if(x6Y == 0) {
-			x6Y = num;
-			n1 = 0;
-			return 0;
-		}
-		else
-		{
-			double resu = x6Y;
-			for(int i = 0; i < num; i++) {
-				resu = resu * x6Y;
-			}
-			return resu;
-		}
+		return 1.0;
 	}
 	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
 	private double gamma(double z)
@@ -442,8 +334,9 @@ public class MiniCalMain extends Activity {
 		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);
 		onCreate(null);
-		displayNew();
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -459,107 +352,15 @@ public class MiniCalMain extends Activity {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
 		case R.id.menu_exit : finish();break;
-		case R.id.menu_about : openAbout();break;
-		case R.id.menu_shownum : showNum = -showNum;showNumNow();if(showNum > 0 ) {item.setTitle(R.string.menu_shownumoff);}else {item.setTitle(R.string.menu_shownumon);}break;
-		case R.id.menu_musicshare : MusicShare();break;
-		case R.id.menu_help : openHelp();break;
-		case 1 : GoToNumberSystem();break;
-		case 2 : GoToChange();break;
+		case R.id.menu_about : openAbout(MiniCalMain.this);break;
+		case R.id.menu_musicshare : MusicShare(MiniCalMain.this);break;
+		case R.id.menu_help : openHelp(MiniCalMain.this);break;
+		case 1 : GoToNumberSystem(MiniCalMain.this);break;
+		case 2 : GoToChange(MiniCalMain.this);break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private void openAbout() {
-		new AlertDialog.Builder(MiniCalMain.this)
-		.setTitle(R.string.AboutTitle)
-		.setMessage(R.string.AboutMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(MiniCalMain.this, R.string.AboutConfirmMsg, Toast.LENGTH_LONG).show();
-			}
-		})
-		.setNegativeButton(R.string.AboutHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	private void openHelp() {
-		new AlertDialog.Builder(MiniCalMain.this)
-		.setTitle(R.string.HelpTitle)
-		.setMessage(R.string.MainHelpMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.HelpHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	private void MusicShare() {
-		new AlertDialog.Builder(MiniCalMain.this)
-		.setTitle(R.string.menu_musicshare)
-		.setMessage(R.string.MusicShareMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.openMusicShare, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.MusicShareUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	private void GoToNumberSystem() {
-		Intent intent = new Intent();
-		intent.setClass(MiniCalMain.this, MiniCalNumberSystem.class);
-		MiniCalMain.this.startActivity(intent);
-		saveTemp();
-		finish();
-	}
-	
-	private void GoToChange() {
-		Intent intent = new Intent();
-		intent.setClass(MiniCalMain.this, MiniCalChange.class);
-		MiniCalMain.this.startActivity(intent);
-		saveTemp();
-		finish();
-	}
-	
+	/**
 	private void saveTemp() {
 		TempSave.setNum1(n1);
 		TempSave.setNum2(n2);
@@ -567,33 +368,7 @@ public class MiniCalMain extends Activity {
 		TempSave.setResult(result);
 		TempSave.setPoint(point);
 		TempSave.setAct(act);
-		TempSave.setShowNum(showNum);
 		TempSave.setDisplayNum(displayNum);
 	}
-
+	*/
 }
-
-/**---------------------------------What's new---------------------------------
- * 0.7.4-----------------------------------------------------------------------
- * 添加横屏布局
- * 0.7.3-----------------------------------------------------------------------
- * 修复若干BUG
- * 增加TempSave来储存数据
- * 覆写进制转换返回键
- * 0.7.2-----------------------------------------------------------------------
- * 重构程序减少Listener
- * 修复若干BUG
- * 进制转换增加按键提示
- * 0.7.1-----------------------------------------------------------------------
- * 重构程序，大量减少Listener
- * 添加ScrollView以支持较低分辨率的手机
- * 修复若干BUG： {
- * 计算器中输入数字并按了某个符号之后再按另一个符号而没作用的BUG
- * 按下等于号后num1不清零的BUG（按下等于号后直接按数字会在原num1基础上加上一位数）
- * }
- * 0.7.0-----------------------------------------------------------------------
- * 新增进制转换功能
- * 0.6.1-----------------------------------------------------------------------
- * 完善计算器功能及添加计算器菜单
- * 修复若干BUG
- ------------------------------------------------------------------------------*/

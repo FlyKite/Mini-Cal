@@ -1,11 +1,7 @@
 package doge.minical;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,12 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MiniCalNumberSystem extends Activity {
+public class MiniCalNumberSystem extends MiniCalMenu {
 	private TextView changeFromDisplay;
-	private TextView changeDisplay;
+	private EditText changeDisplay;
 	private Button changeButtonAC;
 	private Button changeNumber[] = new Button[16];
 	private Button changeButtonBin;
@@ -47,12 +44,15 @@ public class MiniCalNumberSystem extends Activity {
 		}
 		findView();
 		changeResultDis[changeFrom].setVisibility(View.GONE);
-		changeNum.append('0');
+		if(changeNum.length() == 0) {
+			changeNum.append('0');
+		}
 		displayNew();
 		changeFromD[2] = "Bin";
 		changeFromD[8] = "Oct";
 		changeFromD[10] = "Dec";
 		changeFromD[16] = "Hex";
+		changeFromDisplay.setText("" + changeFromD[changeFrom]);
 		changeButtonAC.setOnClickListener(new ChangeButtonACListener());
 		for(int i = 0; i < 16; i++) {
 			changeNumber[i].setOnClickListener(new ChangeNumberListener());
@@ -66,7 +66,7 @@ public class MiniCalNumberSystem extends Activity {
 	
 	public void findView(){
 		changeFromDisplay = (TextView)findViewById(R.id.changefromdisplay);
-		changeDisplay = (TextView)findViewById(R.id.changedisplay);
+		changeDisplay = (EditText)findViewById(R.id.changedisplay);
 		changeButtonAC = (Button)findViewById(R.id.changebuttonac);
 		changeNumber[0] = (Button)findViewById(R.id.changenumber0);
 		changeNumber[1] = (Button)findViewById(R.id.changenumber1);
@@ -96,6 +96,7 @@ public class MiniCalNumberSystem extends Activity {
 	
 	private void displayNew() {
 		changeDisplay.setText("" + changeNum);
+		changeDisplay.setSelection(changeDisplay.length());
 		change();
 		changeResultDis[2].setText(getString(R.string.changeresult2) + changeResult[2]);
 		changeResultDis[8].setText(getString(R.string.changeresult8) + changeResult[8]);
@@ -279,87 +280,12 @@ public class MiniCalNumberSystem extends Activity {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
 		case R.id.menu_exit : finish();break;
-		case R.id.menu_about : openAbout();break;
-		case R.id.menu_musicshare : MusicShare();break;
-		case R.id.menu_help : openHelp();break;
+		case R.id.menu_about : openAbout(MiniCalNumberSystem.this);break;
+		case R.id.menu_musicshare : MusicShare(MiniCalNumberSystem.this);break;
+		case R.id.menu_help : openHelp(MiniCalNumberSystem.this);break;
 		case 1 : goBack();break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public void openAbout() {
-		new AlertDialog.Builder(MiniCalNumberSystem.this)
-		.setTitle(R.string.AboutTitle)
-		.setMessage(R.string.AboutMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Toast.makeText(MiniCalNumberSystem.this, R.string.AboutConfirmMsg, Toast.LENGTH_LONG).show();
-			}
-		})
-		.setNegativeButton(R.string.AboutHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	public void openHelp() {
-		new AlertDialog.Builder(MiniCalNumberSystem.this)
-		.setTitle(R.string.HelpTitle)
-		.setMessage(R.string.ChangeHelpMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.HelpHome, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.AboutHomeUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
-	}
-	
-	public void MusicShare() {
-		new AlertDialog.Builder(MiniCalNumberSystem.this)
-		.setTitle(R.string.menu_musicshare)
-		.setMessage(R.string.MusicShareMsg)
-		.setPositiveButton(R.string.AboutConfirm, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setNegativeButton(R.string.openMusicShare, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				Uri uri = Uri.parse(getString(R.string.MusicShareUri));
-				Intent intent =  new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			}
-		})
-		.show();
 	}
 	
 	public void goBack() {
