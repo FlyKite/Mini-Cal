@@ -33,7 +33,6 @@ public class MiniCalMain extends MiniCalMenu {
 	private Button buttongh;
 	private Button buttonbh;
 
-	int act;
 	StringBuffer displayNum = new StringBuffer();
 	double x6Y;
 	boolean point = false;
@@ -65,6 +64,8 @@ public class MiniCalMain extends MiniCalMenu {
 		buttonBack.setOnClickListener(new ButtonBackListener());
 		buttonLK.setOnClickListener(new ButtonKListener());
 		buttonRK.setOnClickListener(new ButtonKListener());
+//		buttonLK.setVisibility(View.GONE);
+//		buttonRK.setVisibility(View.GONE);
 		for(int i = 0; i < 5; i++) {
 			button[i].setOnClickListener(new ButtonListener());
 		}
@@ -81,6 +82,18 @@ public class MiniCalMain extends MiniCalMenu {
 			buttonpi.setOnClickListener(new FunctionButtonListener());
 			buttongh.setOnClickListener(new FunctionButtonListener());
 			buttonbh.setOnClickListener(new FunctionButtonListener());
+//			buttonsin.setVisibility(View.GONE);
+//			buttoncos.setVisibility(View.GONE);
+//			buttontan.setVisibility(View.GONE);
+//			buttonjc.setVisibility(View.GONE);
+//			buttonln.setVisibility(View.GONE);
+//			buttonlog.setVisibility(View.GONE);
+//			buttonx62.setVisibility(View.GONE);
+//			buttonx6y.setVisibility(View.GONE);
+//			buttonexp.setVisibility(View.GONE);
+//			buttonpi.setVisibility(View.GONE);
+//			buttongh.setVisibility(View.GONE);
+//			buttonbh.setVisibility(View.GONE);
 		}
 		displayNew();
 	}
@@ -134,7 +147,7 @@ public class MiniCalMain extends MiniCalMenu {
 	}
 	
 	private void displayResult() {
-		display.setText("" + displayNum + " = ");
+		display.setText("" + displayNum + " = " + cal());
 		display.setSelection(display.length());
 	}
 	
@@ -208,8 +221,7 @@ public class MiniCalMain extends MiniCalMenu {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(displayNum.length() > 2 && displayNum.charAt(displayNum.length() - 1) == ' ' && displayNum.charAt(displayNum.length() - 3) == ' ') {
-				displayNum.deleteCharAt(displayNum.length() -1);
-				displayNum.deleteCharAt(displayNum.length() -1);
+				displayNum.delete(displayNum.length() - 2, displayNum.length());
 			}
 			if(displayNum.charAt(displayNum.length() - 1) == '.') {
 				point = false;
@@ -221,6 +233,9 @@ public class MiniCalMain extends MiniCalMenu {
 			if(displayNum.length() == 1) {
 				displayNum.append(0);
 			}
+			if(displayNum.indexOf(".", displayNum.lastIndexOf(" ")) != -1) {
+				point = true;
+			}
 			displayNew();
 		}
 		
@@ -231,10 +246,9 @@ public class MiniCalMain extends MiniCalMenu {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			int LR = 0;
 			switch(v.getId()) {
-			case R.id.buttonLK : LR = 0;displayNum.append(" ( ");break;
-			case R.id.buttonRK : LR = 1;displayNum.append(" ) ");break;
+			case R.id.buttonLK : displayNum.append(" ( ");break;
+			case R.id.buttonRK : displayNum.append(" ) ");break;
 			}
 			displayNew();
 		}
@@ -265,16 +279,95 @@ public class MiniCalMain extends MiniCalMenu {
 		button1234[2] = " × ";
 		button1234[3] = " ÷ ";
 		if(displayNum.charAt(displayNum.length() - 1) == ' ') {
-			displayNum.deleteCharAt(displayNum.length() - 1);
-			displayNum.deleteCharAt(displayNum.length() - 1);
-			displayNum.deleteCharAt(displayNum.length() - 1);
+			displayNum.delete(displayNum.length() - 3, displayNum.length());
+		}
+		if(point == true) {
+			point = false;
 		}
 		displayNum.append(button1234[n]);
 		displayNew();
 	}
 	
-	private void cal() {
-		
+	private double cal() {
+		StringBuffer calNum = new StringBuffer(displayNum);
+		StringBuffer calStack[] = new StringBuffer[20];
+		StringBuffer numStack[] = new StringBuffer[20];
+		int topOfCal = 0, topOfNum = 0;
+		calNum.deleteCharAt(0);
+		while(calNum.length() != 0) {
+			int pos = calNum.indexOf(" ");
+			if(pos == -1) {
+				pos = calNum.length();
+			}
+			if(calNum.charAt(0) > 47 && calNum.charAt(0) < 58) {
+				numStack[topOfNum] = new StringBuffer("");
+				numStack[topOfNum++].append(calNum.substring(0, pos));
+			}
+			else {
+				calStack[topOfCal] = new StringBuffer("");
+				calStack[topOfCal++].append(calNum.substring(0, pos));
+				while(topOfCal > 0 && topOfNum > 1 && calOrNot(calStack[topOfCal - 1].charAt(0), calStack[topOfCal - 2].charAt(0))) {
+					double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
+					numStack[--topOfNum] = new StringBuffer("");
+					double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
+					numStack[--topOfNum] = new StringBuffer("");
+					switch(calStack[topOfCal - 2].charAt(0)) {
+					case '+' : numStack[topOfNum++].append(num1 + num2);System.out.println(num1 + "+" + num2);;break;
+					case '-' : numStack[topOfNum++].append(num1 - num2);System.out.println(num1 + "-" + num2);;break;
+					case '×' : numStack[topOfNum++].append(num1 * num2);System.out.println(num1 + "*" + num2);;break;
+					case '÷' : numStack[topOfNum++].append(num1 / num2);System.out.println(num1 + "/" + num2);;break;
+					case '(' : ;break;
+					case ')' : ;break;
+					}
+					calStack[topOfCal - 2] = new StringBuffer(calStack[topOfCal - 1]);
+					calStack[--topOfCal] = new StringBuffer("");
+				}
+			}
+			calNum.delete(0, pos + 1);
+			System.out.println("===================");
+		}
+		System.out.println("-----------------");
+		for(int i = 0; i < topOfNum; i++) {
+			System.out.println(numStack[i]);
+		}
+		while(topOfCal > 0 && topOfNum > 1) {
+			double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
+			numStack[--topOfNum] = new StringBuffer("");
+			double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
+			numStack[--topOfNum] = new StringBuffer("");
+			switch(calStack[topOfCal - 1].charAt(0)) {
+			case '+' : numStack[topOfNum++].append(num1 + num2);break;
+			case '-' : numStack[topOfNum++].append(num1 - num2);break;
+			case '×' : numStack[topOfNum++].append(num1 * num2);break;
+			case '÷' : numStack[topOfNum++].append(num1 / num2);break;
+			case '(' : ;break;
+			case ')' : ;break;
+			}
+			calStack[--topOfCal] = new StringBuffer("");
+		}
+		System.out.println("-----------------");
+		for(int i = 0; i < topOfNum; i++) {
+			System.out.println(numStack[i]);
+		}
+		return Double.parseDouble(numStack[0].toString());
+	}
+	
+	private boolean calOrNot(char top, char underTop) {
+		int topNum = 0, underTopNum = 0;
+		char cal[] = {'+', '-', ' ', '×', '÷', ' ', '(', ')'};
+		for(int i = 0; i < 8; i++) {
+			if(top == cal[i]) {
+				topNum = i;
+			}
+			if(underTop == cal[i]) {
+				underTopNum = i;
+			}
+		}
+		int pd = topNum - underTopNum;
+		if(pd <= 1 || topNum == 7) {
+			return true;
+		}
+		return false;
 	}
 	
 	//科学计算器功能键监听器
@@ -305,29 +398,29 @@ public class MiniCalMain extends MiniCalMenu {
 		
 	}
 	
-	private double functionJC(double num)
-	{
-		num = gamma(num + 1);
-		return num;
-	}
-	
-	private double functionX6Y(double num)
-	{
-		return 1.0;
-	}
+//	private double functionJC(double num)
+//	{
+//		num = gamma(num + 1);
+//		return num;
+//	}
+//	
+//	private double functionX6Y(double num)
+//	{
+//		return 1.0;
+//	}
 	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
-	private double gamma(double z)
-	{
-		double pi = 3.1415926535897932384626;
-	    double ret = 0.0;
-	    ret = (1.000000000190015 + 76.18009172947146/(z+1) + -86.50532032941677/(z+2) + 
-	          24.01409824083091/(z+3) + -1.231739572450155/(z+4) + 
-	          1.208650973866179e-3/(z+5) + -5.395239384953e-6/(z+6))*(Math.sqrt(2*pi)/z)*
-	          Math.pow(z+5.5, z+.5) //(z+5.5)^(z+.5)
-	          *Math.exp(-(z+5.5));
-	    return ret;
-	}
-	//以上阶乘代码摘自网络--------------------------------------------------------------------------------------------------------------------
+//	private double gamma(double z)
+//	{
+//		double pi = 3.1415926535897932384626;
+//	    double ret = 0.0;
+//	    ret = (1.000000000190015 + 76.18009172947146/(z+1) + -86.50532032941677/(z+2) + 
+//	          24.01409824083091/(z+3) + -1.231739572450155/(z+4) + 
+//	          1.208650973866179e-3/(z+5) + -5.395239384953e-6/(z+6))*(Math.sqrt(2*pi)/z)*
+//	          Math.pow(z+5.5, z+.5) //(z+5.5)^(z+.5)
+//	          *Math.exp(-(z+5.5));
+//	    return ret;
+//	}
+//	//以上阶乘代码摘自网络--------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {

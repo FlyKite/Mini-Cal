@@ -231,24 +231,24 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			String choose = new String();
+			int n = 0;
 			switch(v.getId()) {
-			case R.id.changebuttonbin : changefromListener(2);choose = getText(R.string.changechoose2).toString();break;
-			case R.id.changebuttonoct : changefromListener(8);choose = getText(R.string.changechoose8).toString();break;
-			case R.id.changebuttondec : changefromListener(10);choose = getText(R.string.changechoose10).toString();break;
-			case R.id.changebuttonhex : changefromListener(16);choose = getText(R.string.changechoose16).toString();break;
+			case R.id.changebuttonbin : n = 2;choose = getText(R.string.changechoose2).toString();break;
+			case R.id.changebuttonoct : n = 8;choose = getText(R.string.changechoose8).toString();break;
+			case R.id.changebuttondec : n = 10;choose = getText(R.string.changechoose10).toString();break;
+			case R.id.changebuttonhex : n = 16;choose = getText(R.string.changechoose16).toString();break;
 			}
-			Toast.makeText(MiniCalNumberSystem.this, choose, Toast.LENGTH_SHORT).show();
+			if(changeFrom != n) {
+				changeResultDis[changeFrom].setVisibility(View.VISIBLE);
+				Toast.makeText(MiniCalNumberSystem.this, choose, Toast.LENGTH_SHORT).show();
+				changeFrom = n;
+				setChangeButtonAvailable(changeFrom);
+				changeResultDis[changeFrom].setVisibility(View.GONE);
+				changeFromDisplay.setText("" + changeFromD[changeFrom]);
+				displayNew();
+			}
 		}
 		
-	}
-	
-	private void changefromListener(int n) {
-		changeResultDis[changeFrom].setVisibility(View.VISIBLE);
-		changeFrom = n;
-		setChangeButtonAvailable(changeFrom);
-		changeResultDis[changeFrom].setVisibility(View.GONE);
-		changeFromDisplay.setText("" + changeFromD[changeFrom]);
-		displayNew();
 	}
 	
 	private void setChangeButtonAvailable(int to) {
