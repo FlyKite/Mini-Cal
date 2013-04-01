@@ -21,7 +21,7 @@
     <string name="menu_musicshare">Music Share</string>
     <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
     <string name="openMusicShare">来人，捉虫！</string>
-    <string name="VersionName">0.8.1</string>
+    <string name="VersionName">0.8.2</string>
     <string name="menu_minicalNumberSystem">Number System</string>
     <string name="menu_minicalChange">Unit Convertor</string>
     <string name="menu_minicalback">Back</string>
