@@ -33,9 +33,10 @@ public class MiniCalMain extends MiniCalMenu {
 	private Button buttongh;
 	private Button buttonbh;
 
-	StringBuffer displayNum = new StringBuffer();
+	static StringBuffer displayNum = new StringBuffer();
 	double x6Y;
-	boolean point = false;
+	static boolean point = false;
+	boolean calResult = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,8 @@ public class MiniCalMain extends MiniCalMenu {
 		buttonBack.setOnClickListener(new ButtonBackListener());
 		buttonLK.setOnClickListener(new ButtonKListener());
 		buttonRK.setOnClickListener(new ButtonKListener());
-//		buttonLK.setVisibility(View.GONE);
-//		buttonRK.setVisibility(View.GONE);
+		buttonLK.setVisibility(View.GONE);
+		buttonRK.setVisibility(View.GONE);
 		for(int i = 0; i < 5; i++) {
 			button[i].setOnClickListener(new ButtonListener());
 		}
@@ -82,24 +83,20 @@ public class MiniCalMain extends MiniCalMenu {
 			buttonpi.setOnClickListener(new FunctionButtonListener());
 			buttongh.setOnClickListener(new FunctionButtonListener());
 			buttonbh.setOnClickListener(new FunctionButtonListener());
-//			buttonsin.setVisibility(View.GONE);
-//			buttoncos.setVisibility(View.GONE);
-//			buttontan.setVisibility(View.GONE);
-//			buttonjc.setVisibility(View.GONE);
-//			buttonln.setVisibility(View.GONE);
-//			buttonlog.setVisibility(View.GONE);
-//			buttonx62.setVisibility(View.GONE);
-//			buttonx6y.setVisibility(View.GONE);
-//			buttonexp.setVisibility(View.GONE);
-//			buttonpi.setVisibility(View.GONE);
-//			buttongh.setVisibility(View.GONE);
-//			buttonbh.setVisibility(View.GONE);
+			buttonsin.setVisibility(View.GONE);
+			buttoncos.setVisibility(View.GONE);
+			buttontan.setVisibility(View.GONE);
+			buttonjc.setVisibility(View.GONE);
+			buttonln.setVisibility(View.GONE);
+			buttonlog.setVisibility(View.GONE);
+			buttonx62.setVisibility(View.GONE);
+			buttonx6y.setVisibility(View.GONE);
+			buttonexp.setVisibility(View.GONE);
+			buttonpi.setVisibility(View.GONE);
+			buttongh.setVisibility(View.GONE);
+			buttonbh.setVisibility(View.GONE);
 		}
 		displayNew();
-	}
-	
-	public static void getTempSave() {
-		
 	}
 
 	private void findView(boolean landScape) {
@@ -144,11 +141,13 @@ public class MiniCalMain extends MiniCalMenu {
 	private void displayNew() {
 		display.setText("" + displayNum);
 		display.setSelection(display.length());
+		calResult =false;
 	}
 	
 	private void displayResult() {
 		display.setText("" + displayNum + " = " + cal());
 		display.setSelection(display.length());
+		calResult = true;
 	}
 	
 	class NumberListener implements OnClickListener {
@@ -220,6 +219,10 @@ public class MiniCalMain extends MiniCalMenu {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			if(calResult == true) {
+				displayNew();
+				return;
+			}
 			if(displayNum.length() > 2 && displayNum.charAt(displayNum.length() - 1) == ' ' && displayNum.charAt(displayNum.length() - 3) == ' ') {
 				displayNum.delete(displayNum.length() - 2, displayNum.length());
 			}
@@ -288,7 +291,7 @@ public class MiniCalMain extends MiniCalMenu {
 		displayNew();
 	}
 	
-	private double cal() {
+	private String cal() {
 		StringBuffer calNum = new StringBuffer(displayNum);
 		StringBuffer calStack[] = new StringBuffer[20];
 		StringBuffer numStack[] = new StringBuffer[20];
@@ -349,7 +352,10 @@ public class MiniCalMain extends MiniCalMenu {
 		for(int i = 0; i < topOfNum; i++) {
 			System.out.println(numStack[i]);
 		}
-		return Double.parseDouble(numStack[0].toString());
+		if(numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
+			numStack[0].delete(numStack[0].length() - 2, numStack[0].length());
+		}
+		return numStack[0].toString();
 	}
 	
 	private boolean calOrNot(char top, char underTop) {
@@ -436,7 +442,7 @@ public class MiniCalMain extends MiniCalMenu {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		menu.add(0 ,1 ,0 ,getString(R.string.menu_minicalNumberSystem));
-		menu.add(0 ,2 ,0 ,getString(R.string.menu_minicalChange));
+//		menu.add(0 ,2 ,0 ,getString(R.string.menu_minicalChange));
 		return true;
 	}
 	
@@ -448,20 +454,15 @@ public class MiniCalMain extends MiniCalMenu {
 		case R.id.menu_about : openAbout(MiniCalMain.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalMain.this);break;
 		case R.id.menu_help : openHelp(MiniCalMain.this);break;
-		case 1 : GoToNumberSystem(MiniCalMain.this);break;
-		case 2 : GoToChange(MiniCalMain.this);break;
+		case 1 : GoToNumberSystem(MiniCalMain.this);saveTemp();break;
+		case 2 : GoToChange(MiniCalMain.this);saveTemp();break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	/**
+	
 	private void saveTemp() {
-		TempSave.setNum1(n1);
-		TempSave.setNum2(n2);
-		TempSave.setK(k);
-		TempSave.setResult(result);
-		TempSave.setPoint(point);
-		TempSave.setAct(act);
 		TempSave.setDisplayNum(displayNum);
+		TempSave.setPoint(point);
 	}
-	*/
+	
 }

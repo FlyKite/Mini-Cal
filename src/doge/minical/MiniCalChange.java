@@ -236,7 +236,6 @@ public class MiniCalChange extends MiniCalMenu {
 			Intent intent = new Intent();
 			intent.setClass(MiniCalChange.this, MiniCalMain.class);
 			MiniCalChange.this.startActivity(intent);
-			MiniCalMain.getTempSave();
 			finish();
 	}
 

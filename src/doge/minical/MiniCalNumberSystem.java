@@ -292,7 +292,6 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 			Intent intent = new Intent();
 			intent.setClass(MiniCalNumberSystem.this, MiniCalMain.class);
 			MiniCalNumberSystem.this.startActivity(intent);
-			MiniCalMain.getTempSave();
 			finish();
 	}
 

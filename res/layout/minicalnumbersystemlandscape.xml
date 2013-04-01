@@ -131,16 +131,6 @@
             	android:layout_height="wrap_content"
             	android:textSize="27sp"
             	android:text="@string/changeresult16" />
-        
-        	<TextView 
-            	android:id="@+id/changenumlongdis"
-            	android:layout_width="fill_parent"
-            	android:layout_height="wrap_content" />
-        	
-        	<TextView 
-        	    android:id="@+id/changeshownum"
-        	    android:layout_width="fill_parent"
-        	    android:layout_height="wrap_content" />
             
         	</LinearLayout>
     	</ScrollView>
