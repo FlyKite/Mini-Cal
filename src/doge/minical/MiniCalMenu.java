@@ -42,7 +42,7 @@ public class MiniCalMenu extends Activity {
 			return getString(R.string.ChangeHelpMsg);
 		}
 		else {
-			return getString(R.string.ChangeHelpMsg);
+			return getString(R.string.EquationSolveHelpMsg);
 		}
 	}
 	
@@ -107,6 +107,14 @@ public class MiniCalMenu extends Activity {
 	protected void GoToChange(Activity from) {
 		Intent intent = new Intent();
 		intent.setClass(from, MiniCalChange.class);
+		from.startActivity(intent);
+		//saveTemp();
+		finish();
+	}
+	
+	protected void GoToQJ(Activity from) {
+		Intent intent = new Intent();
+		intent.setClass(from, MiniCalEquationSolve.class);
 		from.startActivity(intent);
 		//saveTemp();
 		finish();

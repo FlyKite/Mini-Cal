@@ -5,7 +5,7 @@
     <string name="menu_about">關於</string>
     <string name="menu_exit">退出</string>
     <string name="AboutTitle">簡潔計算器</string>
-    <string name="AboutMsg">紙飛機DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n美工：无良风筝Fly\n2013.4.1更新~\n今天今天是愚人節喲~\n\n簡潔計算器 ver</string>
+    <string name="AboutMsg">紙飛機DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.4.2更新~\n今天天氣不錯！\n\n簡潔計算器 ver</string>
     <string name="AboutConfirm">確定</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做這個的很無聊唉~裝了這個軟體還看關於信息的都什麽心態？趕緊來一起放風箏吧~</string>
     <string name="AboutHome">一起放風箏吧~</string>
@@ -21,7 +21,7 @@
     <string name="menu_musicshare">紙飛機音樂分享</string>
     <string name="MusicShareMsg">想分享音樂心情，自己打字發條微博太麻煩？紙飛機音樂分享，一鍵搜索專輯介紹地址、專輯圖片，再點一下微博就發上來了。想分享到別處？一點就可以調用其它SNS應用了。音樂分享，就是那麽簡單！趕緊來捉蟲吧~</string>
     <string name="openMusicShare">來人，捉蟲！</string>
-    <string name="VersionName">0.8.2</string>
+    <string name="VersionName">0.8.3</string>
     <string name="menu_minicalNumberSystem">進制轉換</string>
     <string name="menu_minicalChange">單位轉換</string>
     <string name="menu_minicalback">返回</string>
@@ -95,6 +95,18 @@
         <item>立方英尺</item>
         <item>立方码</item>
     </string-array>
+    <!-- 求解From Harry-Chen -->
+    <string name="menu_minicalEquationSolve">方程求解</string>
+    <string name="menu_minicalEquationSolveLand">方\n程\n求\n解</string>
+    <string name="EquationSolveHelpMsg">這裡可以計算一元一次方程和一元二次方程的解哦~\n-------------------------\n幫助：就是這個幫助窗口啦~\n關于：看看這個APP的信息~\n退出：退出計算器~\n-------------------------\n有什麽建議就來給我提建議吧~歡迎哦~</string>
+    <string name="title_activity_main">方程求解</string>
+    <string name="plz_input_coefficient">請輸入方程各項係數\n(一元一次請無視a)</string>
+    <string name="to_show_result">快輸完了猛戳下面的“求解”~</string>
+    <string name="btn_solve">求解</string>
+    <string name="btn_reset">重置</string>
+    <string name="delta_error">啊哦,Delta小於0哦,本程式不提供複數解~</string>
+    <string name="about">Ver 1.1 By Harry Chen 2013/01/20</string>
+    <string name="b_error">嘿!好歹給我个一次項係數!</string>
     
 
 </resources>

@@ -443,6 +443,7 @@ public class MiniCalMain extends MiniCalMenu {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		menu.add(0 ,1 ,0 ,getString(R.string.menu_minicalNumberSystem));
 //		menu.add(0 ,2 ,0 ,getString(R.string.menu_minicalChange));
+		menu.add(0 ,3 ,0 ,getString(R.string.menu_minicalEquationSolve));
 		return true;
 	}
 	
@@ -456,6 +457,7 @@ public class MiniCalMain extends MiniCalMenu {
 		case R.id.menu_help : openHelp(MiniCalMain.this);break;
 		case 1 : GoToNumberSystem(MiniCalMain.this);saveTemp();break;
 		case 2 : GoToChange(MiniCalMain.this);saveTemp();break;
+		case 3 : GoToQJ(MiniCalMain.this);saveTemp();break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
