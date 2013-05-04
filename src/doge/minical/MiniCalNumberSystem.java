@@ -1,11 +1,12 @@
 package doge.minical;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,10 +40,10 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		else {
 			setContentView(R.layout.minicalnumbersystem);
 		}
-		if(Build.VERSION.SDK_INT > 10) {
-			findViewById(R.id.topbar).setVisibility(View.GONE);
-		}
+		setTitlePadding();
+		setBackGroundColor(MiniCalNumberSystem.this);
 		findView();
+		TextSize();
 		changeResultDis[changeFrom].setVisibility(View.GONE);
 		if(changeNum.length() == 0) {
 			changeNum.append('0');
@@ -260,6 +261,27 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		}
 	}
 	
+	private void TextSize() {
+		SharedPreferences tSize = getSharedPreferences("nsTextSize", 0);
+		int btn_size, dis_size;
+		btn_size = tSize.getInt("btn_size", 15) + 10;
+		dis_size = tSize.getInt("dis_size", 15) + 15;
+//		changeFromDisplay.setTextSize(dis_size);
+		changeDisplay.setTextSize(dis_size);
+		changeButtonAC.setTextSize(btn_size);
+		for(int i = 0; i < 16; i++) {
+			changeNumber[i].setTextSize(btn_size);
+		}
+		changeButtonBin.setTextSize(btn_size - 5);
+		changeButtonOct.setTextSize(btn_size - 5);
+		changeButtonDec.setTextSize(btn_size - 5);
+		changeButtonHex.setTextSize(btn_size - 5);
+		changeResultDis[2].setTextSize(dis_size - 3);
+		changeResultDis[8].setTextSize(dis_size - 3);
+		changeResultDis[10].setTextSize(dis_size - 3);
+		changeResultDis[16].setTextSize(dis_size - 3);
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
@@ -272,6 +294,9 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		menu.add(0 , 1 , 0 ,getString(R.string.menu_minicalback));
+	    SubMenu customize = menu.addSubMenu(0, 0, 0, getString(R.string.menu_customize));
+	    customize.add(0, 4, 0, getString(R.string.menu_backgroundcolor));
+	    customize.add(0, 5, 0, getString(R.string.menu_textsize));
 		return true;
 	}
 	
@@ -284,6 +309,8 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		case R.id.menu_musicshare : MusicShare(MiniCalNumberSystem.this);break;
 		case R.id.menu_help : openHelp(MiniCalNumberSystem.this);break;
 		case 1 : goBack();break;
+		case 4 : BackGroundColor(MiniCalNumberSystem.this);break;
+		case 5 : TextSize(MiniCalNumberSystem.this);break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

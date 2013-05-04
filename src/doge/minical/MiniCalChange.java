@@ -1,11 +1,12 @@
 package doge.minical;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -27,8 +28,10 @@ public class MiniCalChange extends MiniCalMenu {
 	private Spinner changeFrom;
 	private Spinner changeTo;
 	
-	int changeTypeChose,changeFromChose,changeToChose,point = 0;
-	double changeFromNum,changeResult,k = 1;
+	int changeTypeChose,changeFromChose,changeToChose;
+	StringBuffer changeResult = new StringBuffer("0");
+	StringBuffer changeFromNum = new StringBuffer("0");
+	boolean point = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +43,48 @@ public class MiniCalChange extends MiniCalMenu {
 		else {
 			setContentView(R.layout.minicalchange);
 		}
-		if(Build.VERSION.SDK_INT > 10) {
-			findViewById(R.id.topbar).setVisibility(View.GONE);
-		}
+		setTitlePadding();
+		setBackGroundColor(MiniCalChange.this);
 		findview();
+		TextSize();
 		setSpinner();
 		for(int i = 0; i < 10; i++) {
 			changefrom[i].setOnClickListener(new ChangeFromNumListener());
 		}
 		changefrompoint.setOnClickListener(new ChangeFromPointListener());
 		changefromac.setOnClickListener(new ChangeFromACListener());
-		changeType.setOnItemSelectedListener(new ChangeTypeListener());
-		changeFrom.setOnItemSelectedListener(new ChangeFromListener());
-		changeTo.setOnItemSelectedListener(new ChangeToListener());
+		changeType.setOnItemSelectedListener(new ChangeListener());
+		changeFrom.setOnItemSelectedListener(new ChangeListener());
+		changeTo.setOnItemSelectedListener(new ChangeListener());
 	}
 	
 	private void displayNew() {
+		change();
 		changefromdisplay.setText("" + changeFromNum);
 		changetodisplay.setText("" + changeResult);
+	}
+	
+	private void change() {
+		double from, to;
+		from = Double.parseDouble(changeFromNum.toString());
+		to = from * fromTo();
+		changeResult = new StringBuffer("");
+		changeResult.append(to);
+		if(changeResult.substring(changeResult.length() - 2, changeResult.length()).equals(".0")) {
+			changeResult.delete(changeResult.length() - 2, changeResult.length());
+		}
+	}
+	
+	private double fromTo() {
+		if(changeFromChose == changeToChose) {
+			return 1;
+		}
+		switch(changeTypeChose * 100 + changeFromChose * 10 + changeToChose) {
+		case 67 : return 0.001;
+		case 1 : break;
+		case 2 : break;
+		}
+		return 1;
 	}
 	
 	private void findview() {
@@ -98,45 +125,17 @@ public class MiniCalChange extends MiniCalMenu {
 		changeTo.setAdapter(adp_changeFrom);
 	}
 	
-	class ChangeTypeListener implements OnItemSelectedListener {
+	class ChangeListener implements OnItemSelectedListener {
 
 		@Override
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 			// TODO Auto-generated method stub
-			changeTypeChose = arg0.getSelectedItemPosition();
-			setSpinnerFromTo();
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
-	class ChangeFromListener implements OnItemSelectedListener {
-
-		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-			// TODO Auto-generated method stub
-			changeFromChose = arg0.getSelectedItemPosition();
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
-	class ChangeToListener implements OnItemSelectedListener {
-
-		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-			// TODO Auto-generated method stub
-			changeToChose = arg0.getSelectedItemPosition();
+			switch(arg0.getId()) {
+			case R.id.changespinner : changeTypeChose = arg0.getSelectedItemPosition();setSpinnerFromTo();break;
+			case R.id.fromspinner : changeFromChose = arg0.getSelectedItemPosition();break;
+			case R.id.tospinner : changeToChose = arg0.getSelectedItemPosition();break;
+			}
+			displayNew();
 		}
 
 		@Override
@@ -175,18 +174,22 @@ public class MiniCalChange extends MiniCalMenu {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			point = 1;
+			if(point) {
+				changeFromNum.append(".");
+				point = false;
+				displayNew();
+			}
 		}
 		
 	}
 	
 	private void changefromlistener(int choice) {
-		if(point == 0) {
-			changeFromNum = changeFromNum * 10 + choice;
+		if(changeFromNum.charAt(0) == '0' && point) {
+			changeFromNum.deleteCharAt(changeFromNum.length() - 1);
+			changeFromNum.append(choice);
 		}
 		else {
-			k = k * 10;
-			changeFromNum = changeFromNum + choice / k;
+			changeFromNum.append(choice);
 		}
 		displayNew();
 	}
@@ -196,12 +199,29 @@ public class MiniCalChange extends MiniCalMenu {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			changeFromNum = 0;
-			changeResult = 0;
-			k = 0;
+			changeFromNum = new StringBuffer("0");
+			changeResult = new StringBuffer("0");
+			point = true;
 			displayNew();
 		}
 		
+	}
+	
+	private void TextSize() {
+		SharedPreferences tSize = getSharedPreferences("cTextSize", 0);
+		int btn_size, dis_size;
+		btn_size = tSize.getInt("btn_size", 15) + 10;
+		dis_size = tSize.getInt("dis_size", 18) + 20;
+		changefromdisplay.setTextSize(dis_size);
+		changetodisplay.setTextSize(dis_size);
+		for(int i = 0; i < 10; i++) {
+			changefrom[i].setTextSize(btn_size);
+		}
+		changefrompoint.setTextSize(btn_size);
+		changefromac.setTextSize(btn_size);
+//		private Spinner changeType;
+//		private Spinner changeFrom;
+//		private Spinner changeTo;
 	}
 
 	@Override
@@ -216,6 +236,9 @@ public class MiniCalChange extends MiniCalMenu {
 		// TODO Auto-generated method stub
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		menu.add(0 , 1 , 0 ,getString(R.string.menu_minicalback));
+	    SubMenu customize = menu.addSubMenu(0, 0, 0, getString(R.string.menu_customize));
+	    customize.add(0, 4, 0, getString(R.string.menu_backgroundcolor));
+	    customize.add(0, 5, 0, getString(R.string.menu_textsize));
 		return true;
 	}
 
@@ -228,6 +251,7 @@ public class MiniCalChange extends MiniCalMenu {
 		case R.id.menu_musicshare : MusicShare(MiniCalChange.this);break;
 		case R.id.menu_help : openHelp(MiniCalChange.this);break;
 		case 1 : goBack();break;
+		case 4 : BackGroundColor(MiniCalChange.this);break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

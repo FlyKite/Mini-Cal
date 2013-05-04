@@ -6,13 +6,11 @@
     <string name="menu_about">关于</string>
     <string name="menu_exit">退出</string>
     <string name="AboutTitle">简洁计算器</string>
-    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.4.2更新~\n今天天气不错！\n\n简洁计算器 ver</string>
+    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.5.1更新~\n各位节日快乐~\n\n简洁计算器 ver</string>
     <string name="AboutConfirm">确定</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做这个的很无聊唉~装了这个软件还看关于信息的都什么心态？赶紧来一起放风筝吧~</string>
     <string name="AboutHome">一起放风筝吧~</string>
     <string name="AboutHomeUri">http://weibo.cn/hiy0u</string>
-    <string name="menu_shownumon">显示各种数据</string>
-    <string name="menu_shownumoff">隐藏数据</string>
     <string name="menu_help">帮助</string>
     <string name="HelpTitle">帮助</string>
     <string name="MainHelpMsg">别担心,这只是个普通的计算器~\n-------------------------\n帮助：就是这个帮助窗口啦~\n关于：看看这个APP的信息~\n退出：退出计算器~\n-------------------------\n有什么建议就来给我提建议吧~欢迎哦~</string>
@@ -22,7 +20,7 @@
     <string name="menu_musicshare">纸飞机音乐分享</string>
     <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
     <string name="openMusicShare">来人，捉虫！</string>
-    <string name="VersionName">0.8.3</string>
+    <string name="menu_moreFunction">更多功能</string>
     <string name="menu_minicalNumberSystem">进制转换</string>
     <string name="menu_minicalChange">单位转换</string>
     <string name="menu_minicalNumberSystemLand">进\n制\n转\n换</string>
@@ -39,6 +37,17 @@
     <string name="changechoose16">您选择了输入十六进制数</string>
     <string name="changenotfromerror">您输入的数不符合您所选择的进制哦~会出错的哦~清零之后再输入吧~</string>
     <string name="changeoverflowerror">您输入的数太大了~溢出了哦~清零后再输入吧~</string>
+    <string name="menu_customize">个性化</string>
+    <string name="menu_backgroundcolor">背景颜色</string>
+    <string name="red">红色</string>
+    <string name="green">绿色</string>
+    <string name="blue">蓝色</string>
+    <string name="default_color">恢复默认颜色</string>
+    <string name="bg_pic">使用图片背景</string>
+    <string name="menu_textsize">字体大小</string>
+    <string name="ts_btn">按键</string>
+    <string name="ts_dis">显示窗</string>
+    <string name="default_size">恢复默认大小</string>
     <string-array name="changetype">
         <item>长度</item>
         <item>面积</item>

@@ -1,7 +1,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bglayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background" >
+    android:background="#5baaff" >
     
     <LinearLayout
         android:id="@+id/topbar"
@@ -9,18 +10,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/topbar"
         android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:src="@drawable/ic_launcher" />
         
         <TextView
+            android:id="@+id/bartitle"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:textColor="#ffffff"
-            android:textSize="25sp"
+            android:paddingLeft="40dip"
+            android:textSize="18sp"
             android:gravity="center_vertical"
             android:text="@string/menu_minicalNumberSystem" />
         
@@ -58,7 +55,7 @@
             	android:layout_width="wrap_content"
             	android:layout_height="fill_parent"
             	android:textSize="25sp"
-            	android:text="AC" />
+            	android:text="C" />
     	</TableRow>
         
     </TableLayout>

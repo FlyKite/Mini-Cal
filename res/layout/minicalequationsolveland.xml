@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bglayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundland"
+    android:background="#5baaff"
     android:orientation="horizontal" >
     
     <LinearLayout
@@ -11,28 +12,17 @@
         android:layout_height="fill_parent"
         android:background="@drawable/topbarland"
         android:orientation="vertical" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
-        
-        <LinearLayout
-            android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	android:background="@drawable/topbarland"
-        	android:orientation="vertical" >
             
             <TextView
+            	android:id="@+id/bartitle"
             	android:layout_width="fill_parent"
             	android:layout_height="fill_parent"
             	android:textColor="#ffffff"
-            	android:textSize="25sp"
+            	android:paddingTop="32dip"
+            	android:textSize="18sp"
             	android:gravity="center_horizontal"
             	android:text="@string/menu_minicalEquationSolveLand" />
             
-        </LinearLayout>
     </LinearLayout>
     
     <ScrollView

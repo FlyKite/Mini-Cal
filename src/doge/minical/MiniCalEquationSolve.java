@@ -1,13 +1,14 @@
 package doge.minical;
 
-import android.os.Build;
-import android.os.Bundle;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 	TextView textResult;
 	final String TAG = "Equation Solve";
 	String equation, txtResult;
+	Button solve, reset;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,15 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		{
 			setContentView(R.layout.minicalequationsolve);
 		}
-		if(Build.VERSION.SDK_INT > 10) {
-			findViewById(R.id.topbar).setVisibility(View.GONE);
-		}
+		setTitlePadding();
+		setBackGroundColor(MiniCalEquationSolve.this);
 		textA = (EditText) findViewById(R.id.num_a);
 		textB = (EditText) findViewById(R.id.num_b);
 		textC = (EditText) findViewById(R.id.num_c);
 		textResult = (TextView) findViewById(R.id.text_show_result);
+		solve = (Button)findViewById(R.id.button_solve);
+		reset = (Button)findViewById(R.id.button_reset);
+		//extSize();
 	}
 
 	public void solve(View view) {
@@ -46,7 +50,6 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 			int c = Integer
 					.parseInt((textC.getText().toString().equals("")) ? "0"
 							: textC.getText().toString());
-			Log.v(TAG, "ONE,b=" + b + ",c=" + c);
 			oneTime(b, c);
 
 		} else {
@@ -57,7 +60,6 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 			int c = Integer
 					.parseInt((textC.getText().toString().equals("")) ? "0"
 							: textC.getText().toString());
-			Log.v(TAG, "TWO,a=" + a + ",b=" + b + ",c=" + c);
 			if (a == 0) {
 				oneTime(b, c);
 			} else {
@@ -88,7 +90,6 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 						: (b < 0) ? b : "+" + b) + "x")
 				+ (c > 0 ? "+" + c : "") + ((c < 0) ? c : "") + "=0";
 		int delta = b * b - 4 * a * c;
-		Log.v(TAG, "Delta=" + delta);
 		if (delta < 0) {
 			Toast.makeText(this, R.string.delta_error, Toast.LENGTH_LONG)
 					.show();
@@ -116,6 +117,19 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		textResult.setText(R.string.to_show_result);
 	}
 	
+	private void TextSize() {
+		SharedPreferences tSize = getSharedPreferences("esTextSize", 0);
+		int btn_size, dis_size;
+		btn_size = tSize.getInt("btn_size", 15) + 10;
+		dis_size = tSize.getInt("dis_size", 18) + 20;
+		textA.setTextSize(dis_size);
+		textB.setTextSize(dis_size);
+		textC.setTextSize(dis_size);
+		textResult.setTextSize(dis_size);;
+		solve.setTextSize(btn_size);
+		reset.setTextSize(btn_size);
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
@@ -128,6 +142,9 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		menu.add(0 , 1 , 0 ,getString(R.string.menu_minicalback));
+	    SubMenu customize = menu.addSubMenu(0, 0, 0, getString(R.string.menu_customize));
+	    customize.add(0, 4, 0, getString(R.string.menu_backgroundcolor));
+	    //customize.add(0, 5, 0, getString(R.string.menu_textsize));
 		return true;
 	}
 	
@@ -140,6 +157,8 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		case R.id.menu_musicshare : MusicShare(MiniCalEquationSolve.this);break;
 		case R.id.menu_help : openHelp(MiniCalEquationSolve.this);break;
 		case 1 : goBack();break;
+		case 4 : BackGroundColor(MiniCalEquationSolve.this);break;
+		case 5 : TextSize(MiniCalEquationSolve.this);break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bglayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background"
+    android:background="#5baaff"
     android:orientation="vertical" >
     
     <LinearLayout
@@ -10,18 +11,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/topbar"
         android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:src="@drawable/ic_launcher" />
         
         <TextView
+            android:id="@+id/bartitle"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:paddingLeft="40dip"
             android:textColor="#ffffff"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:gravity="center_vertical"
             android:text="@string/app_name" />
         
@@ -83,7 +80,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="AC" />
+                android:text="C" />
 
         </LinearLayout>
 

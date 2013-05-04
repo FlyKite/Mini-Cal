@@ -2,16 +2,15 @@
 <resources>
 
     <string name="app_name">Mini Cal</string>
+    <string name="app_nameLand">M\nC</string>
     <string name="menu_about">About</string>
     <string name="menu_exit">Exit</string>
     <string name="AboutTitle">Mini Cal</string>
-    <string name="AboutMsg">PaperAirPlane DevTeam\nAuthor:FlyKite\nhttp://weibo.com/hiy0u\nAuthor of Equation Solve:HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\nDesigner:FlyKite\nAt 2013.4.2\nIt\'s a sunny day!\n\nMini Cal ver</string>
+    <string name="AboutMsg">PaperAirPlane DevTeam\nAuthor:FlyKite\nhttp://weibo.com/hiy0u\nAuthor of Equation Solve:HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\nDesigner:FlyKite\nAt 2013.5.1\nHappy International Labor Day!\n\nMini Cal ver</string>
     <string name="AboutConfirm">OK</string>
     <string name="AboutConfirmMsg">Let\'s Fly Kite!</string>
     <string name="AboutHome">Let\'s Fly Kite</string>
     <string name="AboutHomeUri">http://weibo.cn/hiy0u</string>
-    <string name="menu_shownumon">Show Data</string>
-    <string name="menu_shownumoff">Hide Data</string>
     <string name="menu_help">Help</string>
     <string name="HelpTitle">Help</string>
     <string name="MainHelpMsg">This is just a simple calculator~\n-------------------------\nHelp:Open help\nAbout:About Mini Cal\nExit:Exit this app.\n-------------------------\nWelcome to my Weibo and give me some advice!</string>
@@ -21,9 +20,11 @@
     <string name="menu_musicshare">Music Share</string>
     <string name="MusicShareMsg">想分享音乐心情，自己打字发条微博太麻烦？纸飞机音乐分享，一键搜索专辑介绍地址、专辑图片，再点一下微博就发上来了。想分享到别处？一点就可以调用其它SNS应用了。音乐分享，就是那么简单！赶紧来捉虫吧~</string>
     <string name="openMusicShare">来人，捉虫！</string>
-    <string name="VersionName">0.8.3</string>
+    <string name="menu_moreFunction">More Functions</string>
     <string name="menu_minicalNumberSystem">Number System</string>
     <string name="menu_minicalChange">Unit Convertor</string>
+    <string name="menu_minicalNumberSystemLand">N\nS</string>
+    <string name="menu_minicalChangeLand">U\nC</string>
     <string name="menu_minicalback">Back</string>
     <string name="changeresult">Result:</string>
     <string name="changeresult2">Bin:</string>
@@ -36,6 +37,17 @@
     <string name="changechoose16">You have chosen Hexadecimal</string>
     <string name="changenotfromerror">The number is illegal!Please press "AC" button!</string>
     <string name="changeoverflowerror">Oops~The number is to large!</string>
+    <string name="menu_customize">Customize</string>
+    <string name="menu_backgroundcolor">Background Color</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="default_color">Default Color</string>
+    <string name="bg_pic">BackGround\nPicture</string>
+    <string name="menu_textsize">TextSize</string>
+    <string name="ts_btn">Button</string>
+    <string name="ts_dis">Display</string>
+    <string name="default_size">Default Size</string>
     <string-array name="changetype">
         <item>长度</item>
         <item>面积</item>
@@ -97,7 +109,7 @@
     </string-array>
     <!-- 求解From Harry-Chen -->
     <string name="menu_minicalEquationSolve">Equation Solve</string>
-    <string name="menu_minicalEquationSolveLand">Equation\nSolve</string>
+    <string name="menu_minicalEquationSolveLand">E\nS</string>
     <string name="EquationSolveHelpMsg">\n-------------------------\nHelp:Open help\n-------------------------\nAbout:About Mini Cal\n-------------------------\nExit:Exit this app\n-------------------------\nWelcome to my Weibo and give me some advice!</string>
     <string name="title_activity_main">Equation Solve</string>
     <string name="plz_input_coefficient">Please input the coefficients of the equation\n(Leave \'a\' EMPTY if it is one-time equation)</string>
@@ -105,7 +117,7 @@
     <string name="btn_solve">Solve</string>
     <string name="btn_reset">Reset</string>
     <string name="delta_error">Oops, Delta is smaller than 0, complex solutions are not provided</string>
-    <string name="about">Ver 1.0 By Harry Chen 2013/01/19</string>
+    <string name="about">Ver 1.1 By Harry Chen 2013/01/19</string>
     <string name="b_error">Hey, have you enteren the coefficient of x?</string>
     
 

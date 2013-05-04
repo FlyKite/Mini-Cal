@@ -1,10 +1,13 @@
 package doge.minical;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,7 +38,7 @@ public class MiniCalMain extends MiniCalMenu {
 
 	static StringBuffer displayNum = new StringBuffer();
 	double x6Y;
-	static boolean point = false;
+	static boolean point = true;
 	boolean calResult = false;
 	
 	@Override
@@ -45,15 +48,16 @@ public class MiniCalMain extends MiniCalMenu {
 		if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setContentView(R.layout.minicalmainlandscape);
 			findView(true);
+			TextSize(true);
 		}
 		else
 		{
 			setContentView(R.layout.minicalmain);
 			findView(false);
+			TextSize(false);
 		}
-		if(Build.VERSION.SDK_INT > 10) {
-			findViewById(R.id.topbar).setVisibility(View.GONE);
-		}
+		setTitlePadding();
+		setBackGroundColor(MiniCalMain.this);
 		if(displayNum.length() == 0) {
 			displayNum.append(" 0");
 		}
@@ -174,7 +178,7 @@ public class MiniCalMain extends MiniCalMenu {
 	private void numberListener(int n) {
 		if(displayNum.charAt(displayNum.length() - 1) == '0' 
 				&& displayNum.charAt(displayNum.length() - 2) == ' '
-				&& point == false) {
+				&& point) {
 			displayNum.deleteCharAt(displayNum.length() - 1);
 			displayNum.append(n);
 		}
@@ -189,8 +193,8 @@ public class MiniCalMain extends MiniCalMenu {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(point == false) {
-				point = true;
+			if(point) {
+				point = false;
 				if(displayNum.charAt(displayNum.length() - 1) == ' ') {
 					displayNum.append(0);
 				}
@@ -208,7 +212,7 @@ public class MiniCalMain extends MiniCalMenu {
 			// TODO Auto-generated method stub
 			displayNum = new StringBuffer();
 			displayNum.append(" 0");
-			point = false;
+			point = true;
 			displayNew();
 		}
 		
@@ -227,7 +231,7 @@ public class MiniCalMain extends MiniCalMenu {
 				displayNum.delete(displayNum.length() - 2, displayNum.length());
 			}
 			if(displayNum.charAt(displayNum.length() - 1) == '.') {
-				point = false;
+				point = true;
 			}
 			do {
 				displayNum.deleteCharAt(displayNum.length() - 1);
@@ -237,7 +241,7 @@ public class MiniCalMain extends MiniCalMenu {
 				displayNum.append(0);
 			}
 			if(displayNum.indexOf(".", displayNum.lastIndexOf(" ")) != -1) {
-				point = true;
+				point = false;
 			}
 			displayNew();
 		}
@@ -284,8 +288,8 @@ public class MiniCalMain extends MiniCalMenu {
 		if(displayNum.charAt(displayNum.length() - 1) == ' ') {
 			displayNum.delete(displayNum.length() - 3, displayNum.length());
 		}
-		if(point == true) {
-			point = false;
+		if(point == false) {
+			point = true;
 		}
 		displayNum.append(button1234[n]);
 		displayNew();
@@ -352,7 +356,7 @@ public class MiniCalMain extends MiniCalMenu {
 		for(int i = 0; i < topOfNum; i++) {
 			System.out.println(numStack[i]);
 		}
-		if(numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
+		if(numStack[0].length() > 1 && numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
 			numStack[0].delete(numStack[0].length() - 2, numStack[0].length());
 		}
 		return numStack[0].toString();
@@ -409,12 +413,7 @@ public class MiniCalMain extends MiniCalMenu {
 //		num = gamma(num + 1);
 //		return num;
 //	}
-//	
-//	private double functionX6Y(double num)
-//	{
-//		return 1.0;
-//	}
-	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
+//	//以下为阶乘代码--------------------------------------------------------------------------------------------------------------------
 //	private double gamma(double z)
 //	{
 //		double pi = 3.1415926535897932384626;
@@ -427,7 +426,40 @@ public class MiniCalMain extends MiniCalMenu {
 //	    return ret;
 //	}
 //	//以上阶乘代码摘自网络--------------------------------------------------------------------------------------------------------------------
-
+	
+	public void TextSize(boolean land) {
+		SharedPreferences tSize = getSharedPreferences("mainTextSize", 0);
+		int btn_size, dis_size;
+		btn_size = tSize.getInt("btn_size", 15) + 10;
+		dis_size = tSize.getInt("dis_size", 18) + 20;
+		for(int i = 0; i < 10; i++) {
+			number[i].setTextSize(btn_size);
+		}
+		number10.setTextSize(btn_size);
+		for(int i = 0; i < 5; i++) {
+			button[i].setTextSize(btn_size);
+		}
+		buttonAC.setTextSize(btn_size);
+		buttonBack.setTextSize(btn_size);
+		buttonLK.setTextSize(btn_size);
+		buttonRK.setTextSize(btn_size);
+		display.setTextSize(dis_size);
+		if(land) {
+			buttonsin.setTextSize(btn_size);
+			buttoncos.setTextSize(btn_size);
+			buttontan.setTextSize(btn_size);
+			buttonjc.setTextSize(btn_size);
+			buttonln.setTextSize(btn_size);
+			buttonlog.setTextSize(btn_size);
+			buttonx62.setTextSize(btn_size);
+			buttonx6y.setTextSize(btn_size);
+			buttonexp.setTextSize(btn_size);
+			buttonpi.setTextSize(btn_size);
+			buttongh.setTextSize(btn_size);
+			buttonbh.setTextSize(btn_size);
+		}
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
@@ -441,9 +473,13 @@ public class MiniCalMain extends MiniCalMenu {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
-		menu.add(0 ,1 ,0 ,getString(R.string.menu_minicalNumberSystem));
-//		menu.add(0 ,2 ,0 ,getString(R.string.menu_minicalChange));
-		menu.add(0 ,3 ,0 ,getString(R.string.menu_minicalEquationSolve));
+	    SubMenu moreFunction = menu.addSubMenu(0, 0, 0, getString(R.string.menu_moreFunction));
+	    moreFunction.add(0, 1, 0, getString(R.string.menu_minicalNumberSystem));
+	    //moreFunction.add(0, 2, 0, getString(R.string.menu_minicalChange));
+	    moreFunction.add(0, 3, 0, getString(R.string.menu_minicalEquationSolve));
+	    SubMenu customize = menu.addSubMenu(0, 0, 0, getString(R.string.menu_customize));
+	    customize.add(0, 4, 0, getString(R.string.menu_backgroundcolor));
+	    customize.add(0, 5, 0, getString(R.string.menu_textsize));
 		return true;
 	}
 	
@@ -455,14 +491,19 @@ public class MiniCalMain extends MiniCalMenu {
 		case R.id.menu_about : openAbout(MiniCalMain.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalMain.this);break;
 		case R.id.menu_help : openHelp(MiniCalMain.this);break;
-		case 1 : GoToNumberSystem(MiniCalMain.this);saveTemp();break;
-		case 2 : GoToChange(MiniCalMain.this);saveTemp();break;
-		case 3 : GoToQJ(MiniCalMain.this);saveTemp();break;
+		case 1 : GoToNumberSystem(MiniCalMain.this);break;
+		case 2 : GoToChange(MiniCalMain.this);break;
+		case 3 : GoToQJ(MiniCalMain.this);break;
+		case 4 : BackGroundColor(MiniCalMain.this);break;
+		case 5 : TextSize(MiniCalMain.this);break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private void saveTemp() {
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
 		TempSave.setDisplayNum(displayNum);
 		TempSave.setPoint(point);
 	}
