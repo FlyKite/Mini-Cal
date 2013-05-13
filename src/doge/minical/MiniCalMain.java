@@ -1,17 +1,18 @@
 package doge.minical;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MiniCalMain extends MiniCalMenu {
 	private Button number[] = new Button[10];
@@ -56,6 +57,7 @@ public class MiniCalMain extends MiniCalMenu {
 			findView(false);
 			TextSize(false);
 		}
+		showTips();
 		setTitlePadding();
 		setBackGroundColor(MiniCalMain.this);
 		if(displayNum.length() == 0) {
@@ -69,8 +71,8 @@ public class MiniCalMain extends MiniCalMenu {
 		buttonBack.setOnClickListener(new ButtonBackListener());
 		buttonLK.setOnClickListener(new ButtonKListener());
 		buttonRK.setOnClickListener(new ButtonKListener());
-		buttonLK.setVisibility(View.GONE);
-		buttonRK.setVisibility(View.GONE);
+//		buttonLK.setVisibility(View.GONE);
+//		buttonRK.setVisibility(View.GONE);
 		for(int i = 0; i < 5; i++) {
 			button[i].setOnClickListener(new ButtonListener());
 		}
@@ -103,6 +105,22 @@ public class MiniCalMain extends MiniCalMenu {
 		displayNew();
 	}
 
+	private void showTips() {
+		Time nowTime = new Time();
+		nowTime.setToNow();
+		int today =  nowTime.yearDay;
+		int todayHour = nowTime.hour;
+		SharedPreferences day = getSharedPreferences("date", 0);
+		int lastToday = day.getInt("today", today - 1);
+		boolean otherHour = (todayHour % 3 == 0) && (todayHour != day.getInt("todayHour", todayHour - 1));
+		if(otherHour || today != lastToday) {
+			ArrayAdapter<CharSequence> sentences = ArrayAdapter.createFromResource(this, R.array.words, lastToday);
+			Toast.makeText(this, /**sentences.getCount() + */sentences.getItem(today % (sentences.getCount() - 1)).toString(), Toast.LENGTH_LONG).show();
+			day.edit().putInt("today", today).commit();
+		}
+		day.edit().putInt("todayHour", todayHour).commit();
+	}
+	
 	private void findView(boolean landScape) {
 		number[1] = (Button)findViewById(R.id.number1);
 		number[2] = (Button)findViewById(R.id.number2);
@@ -148,8 +166,8 @@ public class MiniCalMain extends MiniCalMenu {
 		calResult =false;
 	}
 	
-	private void displayResult() {
-		display.setText("" + displayNum + " = " + cal());
+	private void displayResult(String cal) {
+		display.setText("" + displayNum + " = " + cal);
 		display.setSelection(display.length());
 		calResult = true;
 	}
@@ -272,9 +290,89 @@ public class MiniCalMain extends MiniCalMenu {
 			case R.id.button2 : button1234Listener(1);break;
 			case R.id.button3 : button1234Listener(2);break;
 			case R.id.button4 : button1234Listener(3);break;
-			case R.id.button0 : displayResult();break;
+			case R.id.button0 : displayResult(calStack());break;
 			}
 			
+		}
+
+		StringBuffer calNum = new StringBuffer(displayNum);
+		StringBuffer calStack[] = new StringBuffer[20];
+		StringBuffer numStack[] = new StringBuffer[20];
+		int topOfCal = 0, topOfNum = 0;
+		private String calStack() {
+			calNum.deleteCharAt(0);
+			while(calNum.length() != 0) {
+				int pos = calNum.indexOf(" ");
+				if(pos == -1) {
+					pos = calNum.length();
+				}
+				if(calNum.charAt(0) > 47 && calNum.charAt(0) < 58) {
+					numStack[topOfNum] = new StringBuffer("");
+					numStack[topOfNum++].append(calNum.substring(0, pos));
+				}
+				else {
+					calStack[topOfCal] = new StringBuffer("");
+					calStack[topOfCal++].append(calNum.substring(0, pos));
+					cal(true);
+				}
+				calNum.delete(0, pos + 1);
+				System.out.println("===================");
+			}
+			System.out.println("-----------------");
+			for(int i = 0; i < topOfNum; i++) {
+				System.out.println(numStack[i]);
+			}
+			cal(false);
+			System.out.println("-----------------");
+			for(int i = 0; i < topOfNum; i++) {
+				System.out.println(numStack[i]);
+			}
+			if(numStack[0].length() > 1 && numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
+				numStack[0].delete(numStack[0].length() - 2, numStack[0].length());
+			}
+			return numStack[0].toString();
+		}
+		
+		private void cal(boolean stop) {
+			while(topOfCal > 0 && topOfNum > 1 && calOrNot(stop, calStack[topOfCal - 1].charAt(0), calStack[topOfCal - 2].charAt(0))) {
+				double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
+				numStack[--topOfNum] = new StringBuffer("");
+				double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
+				numStack[--topOfNum] = new StringBuffer("");
+				switch(calStack[topOfCal - 2].charAt(0)) {
+				case '+' : numStack[topOfNum++].append(num1 + num2);System.out.println(num1 + "+" + num2);;break;
+				case '-' : numStack[topOfNum++].append(num1 - num2);System.out.println(num1 + "-" + num2);;break;
+				case '×' : numStack[topOfNum++].append(num1 * num2);System.out.println(num1 + "*" + num2);;break;
+				case '÷' : numStack[topOfNum++].append(num1 / num2);System.out.println(num1 + "/" + num2);;break;
+				case '(' : ;break;
+				case ')' : ;break;
+				}
+				if(stop) {
+					calStack[topOfCal - 2] = new StringBuffer(calStack[topOfCal - 1]);
+				}
+				calStack[--topOfCal] = new StringBuffer("");
+			}
+		}
+		
+		private boolean calOrNot(boolean stop, char top, char underTop) {
+			if(stop) {
+				return true;
+			}
+			int topNum = 0, underTopNum = 0;
+			char cal[] = {'+', '-', ' ', '×', '÷', ' ', '(', ')'};
+			for(int i = 0; i < 8; i++) {
+				if(top == cal[i]) {
+					topNum = i;
+				}
+				if(underTop == cal[i]) {
+					underTopNum = i;
+				}
+			}
+			int pd = topNum - underTopNum;
+			if(pd <= 1 || topNum == 7) {
+				return true;
+			}
+			return false;
 		}
 		
 	}
@@ -293,91 +391,6 @@ public class MiniCalMain extends MiniCalMenu {
 		}
 		displayNum.append(button1234[n]);
 		displayNew();
-	}
-	
-	private String cal() {
-		StringBuffer calNum = new StringBuffer(displayNum);
-		StringBuffer calStack[] = new StringBuffer[20];
-		StringBuffer numStack[] = new StringBuffer[20];
-		int topOfCal = 0, topOfNum = 0;
-		calNum.deleteCharAt(0);
-		while(calNum.length() != 0) {
-			int pos = calNum.indexOf(" ");
-			if(pos == -1) {
-				pos = calNum.length();
-			}
-			if(calNum.charAt(0) > 47 && calNum.charAt(0) < 58) {
-				numStack[topOfNum] = new StringBuffer("");
-				numStack[topOfNum++].append(calNum.substring(0, pos));
-			}
-			else {
-				calStack[topOfCal] = new StringBuffer("");
-				calStack[topOfCal++].append(calNum.substring(0, pos));
-				while(topOfCal > 0 && topOfNum > 1 && calOrNot(calStack[topOfCal - 1].charAt(0), calStack[topOfCal - 2].charAt(0))) {
-					double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
-					numStack[--topOfNum] = new StringBuffer("");
-					double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
-					numStack[--topOfNum] = new StringBuffer("");
-					switch(calStack[topOfCal - 2].charAt(0)) {
-					case '+' : numStack[topOfNum++].append(num1 + num2);System.out.println(num1 + "+" + num2);;break;
-					case '-' : numStack[topOfNum++].append(num1 - num2);System.out.println(num1 + "-" + num2);;break;
-					case '×' : numStack[topOfNum++].append(num1 * num2);System.out.println(num1 + "*" + num2);;break;
-					case '÷' : numStack[topOfNum++].append(num1 / num2);System.out.println(num1 + "/" + num2);;break;
-					case '(' : ;break;
-					case ')' : ;break;
-					}
-					calStack[topOfCal - 2] = new StringBuffer(calStack[topOfCal - 1]);
-					calStack[--topOfCal] = new StringBuffer("");
-				}
-			}
-			calNum.delete(0, pos + 1);
-			System.out.println("===================");
-		}
-		System.out.println("-----------------");
-		for(int i = 0; i < topOfNum; i++) {
-			System.out.println(numStack[i]);
-		}
-		while(topOfCal > 0 && topOfNum > 1) {
-			double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
-			numStack[--topOfNum] = new StringBuffer("");
-			double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
-			numStack[--topOfNum] = new StringBuffer("");
-			switch(calStack[topOfCal - 1].charAt(0)) {
-			case '+' : numStack[topOfNum++].append(num1 + num2);break;
-			case '-' : numStack[topOfNum++].append(num1 - num2);break;
-			case '×' : numStack[topOfNum++].append(num1 * num2);break;
-			case '÷' : numStack[topOfNum++].append(num1 / num2);break;
-			case '(' : ;break;
-			case ')' : ;break;
-			}
-			calStack[--topOfCal] = new StringBuffer("");
-		}
-		System.out.println("-----------------");
-		for(int i = 0; i < topOfNum; i++) {
-			System.out.println(numStack[i]);
-		}
-		if(numStack[0].length() > 1 && numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
-			numStack[0].delete(numStack[0].length() - 2, numStack[0].length());
-		}
-		return numStack[0].toString();
-	}
-	
-	private boolean calOrNot(char top, char underTop) {
-		int topNum = 0, underTopNum = 0;
-		char cal[] = {'+', '-', ' ', '×', '÷', ' ', '(', ')'};
-		for(int i = 0; i < 8; i++) {
-			if(top == cal[i]) {
-				topNum = i;
-			}
-			if(underTop == cal[i]) {
-				underTopNum = i;
-			}
-		}
-		int pd = topNum - underTopNum;
-		if(pd <= 1 || topNum == 7) {
-			return true;
-		}
-		return false;
 	}
 	
 	//科学计算器功能键监听器
@@ -490,7 +503,8 @@ public class MiniCalMain extends MiniCalMenu {
 		case R.id.menu_exit : finish();break;
 		case R.id.menu_about : openAbout(MiniCalMain.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalMain.this);break;
-		case R.id.menu_help : openHelp(MiniCalMain.this);break;
+		case R.id.menu_motto : showMotto(MiniCalMain.this);break;
+		//case R.id.menu_help : openHelp(MiniCalMain.this);break;
 		case 1 : GoToNumberSystem(MiniCalMain.this);break;
 		case 2 : GoToChange(MiniCalMain.this);break;
 		case 3 : GoToQJ(MiniCalMain.this);break;

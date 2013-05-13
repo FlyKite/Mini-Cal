@@ -155,7 +155,8 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		case R.id.menu_exit : finish();break;
 		case R.id.menu_about : openAbout(MiniCalEquationSolve.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalEquationSolve.this);break;
-		case R.id.menu_help : openHelp(MiniCalEquationSolve.this);break;
+		case R.id.menu_motto : showMotto(MiniCalEquationSolve.this);break;
+//		case R.id.menu_help : openHelp(MiniCalEquationSolve.this);break;
 		case 1 : goBack();break;
 		case 4 : BackGroundColor(MiniCalEquationSolve.this);break;
 		case 5 : TextSize(MiniCalEquationSolve.this);break;

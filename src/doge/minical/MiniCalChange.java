@@ -249,7 +249,8 @@ public class MiniCalChange extends MiniCalMenu {
 		case R.id.menu_exit : finish();break;
 		case R.id.menu_about : openAbout(MiniCalChange.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalChange.this);break;
-		case R.id.menu_help : openHelp(MiniCalChange.this);break;
+		case R.id.menu_motto : showMotto(MiniCalChange.this);break;
+//		case R.id.menu_help : openHelp(MiniCalChange.this);break;
 		case 1 : goBack();break;
 		case 4 : BackGroundColor(MiniCalChange.this);break;
 		}

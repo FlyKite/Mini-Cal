@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -438,6 +440,17 @@ public class MiniCalMenu extends Activity {
 			.setTitle(R.string.menu_textsize)
 			.setPositiveButton(android.R.string.ok, sizeButtonListener)
 			.setNegativeButton(android.R.string.cancel, sizeButtonListener)
+			.show();
+	}
+	
+	protected void showMotto(Activity from) {
+		Time nowTime = new Time();
+		nowTime.setToNow();
+		int today =  nowTime.yearDay;
+		ArrayAdapter<CharSequence> sentences = ArrayAdapter.createFromResource(this, R.array.words, today);
+		new AlertDialog.Builder(from)
+			.setTitle(R.string.menu_motto)
+			.setMessage(sentences.getItem(today % (sentences.getCount() - 1)).toString())
 			.show();
 	}
 	

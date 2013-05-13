@@ -20,6 +20,7 @@
     <string name="menu_musicshare">紙飛機音樂分享</string>
     <string name="MusicShareMsg">想分享音樂心情，自己打字發條微博太麻煩？紙飛機音樂分享，一鍵搜索專輯介紹地址、專輯圖片，再點一下微博就發上來了。想分享到別處？一點就可以調用其它SNS應用了。音樂分享，就是那麽簡單！趕緊來捉蟲吧~</string>
     <string name="openMusicShare">來人，捉蟲！</string>
+    <string name="menu_motto">今日格言</string>
     <string name="menu_moreFunction">更多功能</string>
     <string name="menu_minicalNumberSystem">進制轉換</string>
     <string name="menu_minicalChange">單位轉換</string>

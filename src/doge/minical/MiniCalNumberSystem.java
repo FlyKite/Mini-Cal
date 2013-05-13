@@ -307,7 +307,8 @@ public class MiniCalNumberSystem extends MiniCalMenu {
 		case R.id.menu_exit : finish();break;
 		case R.id.menu_about : openAbout(MiniCalNumberSystem.this);break;
 		case R.id.menu_musicshare : MusicShare(MiniCalNumberSystem.this);break;
-		case R.id.menu_help : openHelp(MiniCalNumberSystem.this);break;
+		case R.id.menu_motto : showMotto(MiniCalNumberSystem.this);break;
+//		case R.id.menu_help : openHelp(MiniCalNumberSystem.this);break;
 		case 1 : goBack();break;
 		case 4 : BackGroundColor(MiniCalNumberSystem.this);break;
 		case 5 : TextSize(MiniCalNumberSystem.this);break;
