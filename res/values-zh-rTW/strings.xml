@@ -6,7 +6,7 @@
     <string name="menu_about">關於</string>
     <string name="menu_exit">退出</string>
     <string name="AboutTitle">簡潔計算器</string>
-    <string name="AboutMsg">紙飛機DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.5.1更新~\n各位節日快樂~\n\n簡潔計算器 ver</string>
+    <string name="AboutMsg">紙飛機DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.5.28更新~\n兒童節快到了喲~各位準備high起來了麽？\n\n簡潔計算器 ver</string>
     <string name="AboutConfirm">確定</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做這個的很無聊唉~裝了這個軟體還看關於信息的都什麽心態？趕緊來一起放風箏吧~</string>
     <string name="AboutHome">一起放風箏吧~</string>
@@ -119,6 +119,91 @@
     <string name="delta_error">啊哦,Delta小於0哦,本程式不提供複數解~</string>
     <string name="about">Ver 1.1 By Harry Chen 2013/01/20</string>
     <string name="b_error">嘿!好歹給我个一次項係數!</string>
-    
+   
+    <string-array name="words">
+	    <item>志当存高远。</item>
+	    <item>志不强者智不达。</item>
+	    <item>言必信，行必果。</item>
+	    <item>满招损，谦受益。</item>
+	    <item>敏而好学，不耻下问。</item>
+	    <item>兼听则明，偏信则暗。</item>
+	    <item>知人者智，自知者明。</item>
+	    <item>千里之行，始于足下。</item>
+	    <item>知己知彼，百战不殆。</item>
+	    <item>它山之石，可以攻玉。</item>
+	    <item>精诚所加，金石为开。</item>
+	    <item>绳锯木断，水滴石穿。</item>
+	    <item>行百里者，半于九十。</item>
+	    <item>君子坦荡荡，小人常戚戚。</item>
+	    <item>由俭入奢易，由奢入俭难。</item>
+	    <item>工欲善其事，必先利其器。</item>
+	    <item>疾风知劲草，岁寒见后凋。</item>
+	    <item>丈夫志四海，万里犹比邻。</item>
+	    <item>若要功夫深，铁杵磨成针。</item>
+	    <item>盛年不重来，一日难再晨。</item>
+	    <item>积土而为山，积水而为海。</item>
+	    <item>读书破万卷，下笔如有神。</item>
+	    <item>少壮不努力，老大徒伤悲。</item>
+	    <item>天行健，君子以自强不息。</item>
+	    <item>得道者多助，失道者寡助。</item>
+	    <item>温故而知新，可以为师矣。</item>
+	    <item>欲穷千里目，更上一层楼.</item>
+	    <item>临渊羡鱼，不如退而结网。</item>
+	    <item>学如逆水行舟，不进则退。</item>
+	    <item>岁寒，然后知松柏之后凋也。</item>
+	    <item>智者不必仁，而仁者则必智。</item>
+	    <item>书犹药也，善读之可以医愚。</item>
+	    <item>学而不思则罔，思而不学则殆。</item>
+	    <item>恢弘志士之气，不宜妄自菲薄。</item>
+	    <item>大行不顾细谨，大礼不辞小让。</item>
+	    <item>三军可夺帅也，匹夫不可夺志也。</item>
+	    <item>智者不惑，仁者不忧，勇者不惧。</item>
+	    <item>天下之事常成于困约，而败于奢靡。</item>
+	    <item>业精于勤荒于嬉，行成于思毁于随。</item>
+	    <item>非淡泊无以明志，非宁静无以致远。</item>
+	    <item>长风破浪会有时，直挂云帆济沧海。</item>
+	    <item>路曼曼其修远兮，吾将上下而求索。</item>
+	    <item>书到用时方恨少，事非经过不知难。</item>
+	    <item>横眉冷对千夫指，俯首甘为孺子牛。</item>
+	    <item>书山有路勤为径，学海无涯苦作舟。</item>
+	    <item>强中自有强中手，莫向人前满自夸。</item>
+	    <item>玉不琢，不成器；人不学，不知道。</item>
+	    <item>良药苦口利于病，忠言逆耳利于行。</item>
+	    <item>将在谋而不在勇，兵在精而不在多。</item>
+	    <item>命里有时终须有，命里无时莫强求。</item>
+	    <item>富贵不能淫，贫贱不能移，威武不能屈。</item>
+	    <item>真者，精诚之至也，不精不诚，不能动人。</item>
+	    <item>人非圣贤，孰能无过？过而能改，善莫大焉。</item>
+	    <item>锲而舍之，朽木不折；锲而不舍，金石可镂。</item>
+	    <item>日日行，不怕千万里；常常做，不怕千万事。</item>
+	    <item>良药苦于口而利于病，忠言逆于耳而利于行。</item>
+	    <item>智者千虑，必有一失；愚者千虑，必有一得。</item>
+	    <item>好读书，不求甚解。每有会意，便欣然忘食。</item>
+	    <item>不为外撼，不以物移，而后可以任天下之大事。</item>
+	    <item>不积跬步，无以至千里，不积小流，无以成江海。</item>
+	    <item>尺有所短；寸有所长。物有所不足；智有所不明。</item>
+	    <item>石可破也，而不可夺坚；丹可磨也，而不可夺赤。</item>
+	    <item>古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。</item>
+	    <item>风声、雨声、读书声，声声入耳；家事、国事、天下事，事事关心。</item>
+	    <item>天将降大任于是人也，必先苦其心志，劳其筋骨，饿其体肤，空乏其身，行拂乱其所为。</item>
+	    
+	    <item>所谓天才，只不过是把别人喝咖啡的功夫都用在工作上了。</item>
+	    <item>生命有如铁砧，愈被敲打，愈能发出火花。</item>
+	    <item>一个人如同一只钟表，是以他的行动来确定其价值。</item>
+	    <item>伟大的目标形成伟大的人物。</item>
+	    <item>强烈的信仰会赢取坚强的人，然后又使他们更坚强。</item>
+	    <item>理想是指路明星。没有理想，就没有坚定的方向，而没有方向， 就没有生活。</item>
+	    <item>生活就像海洋，只有意志坚强的人，才能到达彼岸。</item>
+	    <item>得之坦然，失之淡然，顺其自然，争其必然。</item>
+	    <item>天才就是百分之九十九的汗水加百分之一的灵感。</item>
+	    <item>人的大脑和肢体一样，多用则灵，不用则废。</item>
+	    <item>不满是向上的车轮，能够载着不自满的人前进。</item>
+	    <item>其实地上本没有路，走的人多了，也便成了路。</item>
+	    <item>读过一本好书，像交了一个益友。</item>
+	    <item>书籍是人类进步的阶梯。</item>
+	    <item>时间就像海绵里的水，只要愿挤，总还是有的。</item>
+	    <item>书籍是造就灵魂的工具。</item>
+	    <item>默认自己无能，无疑是给失败制造机会！</item>
+	</string-array>
 
 </resources>

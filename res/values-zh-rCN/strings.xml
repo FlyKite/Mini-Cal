@@ -6,7 +6,7 @@
     <string name="menu_about">关于</string>
     <string name="menu_exit">退出</string>
     <string name="AboutTitle">简洁计算器</string>
-    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.5.1更新~\n各位节日快乐~\n\n简洁计算器 ver</string>
+    <string name="AboutMsg">纸飞机DevTeam\n作者：无良风筝Fly\nhttp://weibo.com/hiy0u\n方程求解作者：HarryChen-SIGKILL-\nhttp://weibo.com/yszzf\n美工：无良风筝Fly\n2013.5.28更新~\n儿童节快到了哟~各位准备high起来了么？\n\n简洁计算器 ver</string>
     <string name="AboutConfirm">确定</string>
     <string name="AboutConfirmMsg">某人吐槽：喂喂喂~做这个的很无聊唉~装了这个软件还看关于信息的都什么心态？赶紧来一起放风筝吧~</string>
     <string name="AboutHome">一起放风筝吧~</string>
@@ -206,6 +206,5 @@
 	    <item>书籍是造就灵魂的工具。</item>
 	    <item>默认自己无能，无疑是给失败制造机会！</item>
 	</string-array>
-    
 
 </resources>

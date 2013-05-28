@@ -271,6 +271,9 @@ public class MiniCalMain extends MiniCalMenu {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			if(displayNum.charAt(displayNum.length() - 1) == ' ') {
+				displayNum.deleteCharAt(displayNum.length() - 1);
+			}
 			switch(v.getId()) {
 			case R.id.buttonLK : displayNum.append(" ( ");break;
 			case R.id.buttonRK : displayNum.append(" ) ");break;
@@ -281,7 +284,7 @@ public class MiniCalMain extends MiniCalMenu {
 	}
 	
 	class ButtonListener implements OnClickListener {
-			
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -294,38 +297,66 @@ public class MiniCalMain extends MiniCalMenu {
 			}
 			
 		}
-
-		StringBuffer calNum = new StringBuffer(displayNum);
-		StringBuffer calStack[] = new StringBuffer[20];
-		StringBuffer numStack[] = new StringBuffer[20];
-		int topOfCal = 0, topOfNum = 0;
+		private StringBuffer calNum;
+		private StringBuffer calStack[] = null;
+		private StringBuffer numStack[] = null;
+		private int topOfCal, topOfNum;
 		private String calStack() {
+			calNum = new StringBuffer(displayNum);
+			if(calNum.charAt(calNum.length() - 1) != ' ') {
+				calNum.append(" ");
+			}
+			calNum.append("#");
+			calStack = new StringBuffer[20];
+			numStack = new StringBuffer[20];
+			topOfCal = 0;
+			topOfNum = 0;
 			calNum.deleteCharAt(0);
-			while(calNum.length() != 0) {
-				int pos = calNum.indexOf(" ");
+			int pos = calNum.indexOf(" ");
+			if(pos == -1) {
+				pos = calNum.length();
+			}
+			StringBuffer tempElem = new StringBuffer();
+			tempElem.append(calNum.substring(0, pos));
+			calStack[topOfCal] = new StringBuffer("");
+			calStack[topOfCal++].append("#");
+			while(tempElem.charAt(0) != '#' || calStack[topOfCal-1].charAt(0) != '#') {
+				pos = calNum.indexOf(" ");
 				if(pos == -1) {
 					pos = calNum.length();
 				}
-				if(calNum.charAt(0) > 47 && calNum.charAt(0) < 58) {
+				tempElem = new StringBuffer();
+				tempElem.append(calNum.substring(0, pos));
+				System.out.println("剩余算式--->" + calNum);
+				if(tempElem.charAt(0) > 47 && tempElem.charAt(0) < 58) {
 					numStack[topOfNum] = new StringBuffer("");
-					numStack[topOfNum++].append(calNum.substring(0, pos));
+					numStack[topOfNum++].append(tempElem);
+					System.out.println("数字进栈--->"+tempElem);
+					calNum.delete(0, pos + 1);
 				}
 				else {
-					calStack[topOfCal] = new StringBuffer("");
-					calStack[topOfCal++].append(calNum.substring(0, pos));
-					cal(true);
+					switch(	pushOrNot(tempElem.charAt(0))) {
+					case '<' : calStack[topOfCal] = new StringBuffer("");
+								calStack[topOfCal++].append(tempElem);
+								System.out.println("运算符进栈->"+calStack[topOfCal-1]);
+								calNum.delete(0, pos + 1);
+								break;
+					case '>' : double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
+								numStack[--topOfNum] = new StringBuffer("");
+								double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
+								numStack[--topOfNum] = new StringBuffer("");
+								String calS = calStack[topOfCal-1].toString();
+								calStack[--topOfCal] = new StringBuffer("");
+								System.out.print("运算并将结果入栈->");
+								numStack[topOfNum++].append("" + calc(num1, num2, calS));
+								break;
+					case '=' : System.out.println("脱括号----->"+calStack[topOfCal-1]);
+								calStack[--topOfCal] = new StringBuffer("");
+								calNum.delete(0, pos + 1);
+								break;
+					}
 				}
-				calNum.delete(0, pos + 1);
-				System.out.println("===================");
-			}
-			System.out.println("-----------------");
-			for(int i = 0; i < topOfNum; i++) {
-				System.out.println(numStack[i]);
-			}
-			cal(false);
-			System.out.println("-----------------");
-			for(int i = 0; i < topOfNum; i++) {
-				System.out.println(numStack[i]);
+				showStack();
 			}
 			if(numStack[0].length() > 1 && numStack[0].substring(numStack[0].length() - 2, numStack[0].length()).equals(".0")) {
 				numStack[0].delete(numStack[0].length() - 2, numStack[0].length());
@@ -333,46 +364,59 @@ public class MiniCalMain extends MiniCalMenu {
 			return numStack[0].toString();
 		}
 		
-		private void cal(boolean stop) {
-			while(topOfCal > 0 && topOfNum > 1 && calOrNot(stop, calStack[topOfCal - 1].charAt(0), calStack[topOfCal - 2].charAt(0))) {
-				double num2 = Double.parseDouble(numStack[topOfNum - 1].toString());
-				numStack[--topOfNum] = new StringBuffer("");
-				double num1 = Double.parseDouble(numStack[topOfNum - 1].toString());
-				numStack[--topOfNum] = new StringBuffer("");
-				switch(calStack[topOfCal - 2].charAt(0)) {
-				case '+' : numStack[topOfNum++].append(num1 + num2);System.out.println(num1 + "+" + num2);;break;
-				case '-' : numStack[topOfNum++].append(num1 - num2);System.out.println(num1 + "-" + num2);;break;
-				case '×' : numStack[topOfNum++].append(num1 * num2);System.out.println(num1 + "*" + num2);;break;
-				case '÷' : numStack[topOfNum++].append(num1 / num2);System.out.println(num1 + "/" + num2);;break;
-				case '(' : ;break;
-				case ')' : ;break;
-				}
-				if(stop) {
-					calStack[topOfCal - 2] = new StringBuffer(calStack[topOfCal - 1]);
-				}
-				calStack[--topOfCal] = new StringBuffer("");
+		private double calc(double num1, double num2, String calS) {
+			double result = 0;
+			switch(calS.charAt(0)) {
+			case '+' : result = num1 + num2;break;
+			case '-' : result = num1 - num2;break;
+			case '×' : result = num1 * num2;break;
+			case '÷' : result = num1 / num2;break;
 			}
+			System.out.println(num1 + calS + num2 + "=" + result);
+			return result;
 		}
 		
-		private boolean calOrNot(boolean stop, char top, char underTop) {
-			if(stop) {
-				return true;
+		private void showStack() {
+			System.out.println("-----------------------");
+			for(int i = 0; i < topOfNum; i++) {
+				System.out.print(numStack[i]+",");
 			}
-			int topNum = 0, underTopNum = 0;
-			char cal[] = {'+', '-', ' ', '×', '÷', ' ', '(', ')'};
-			for(int i = 0; i < 8; i++) {
-				if(top == cal[i]) {
-					topNum = i;
+			System.out.println("\nNum-----------------Cal");
+			for(int i = 0; i < topOfCal; i++) {
+				System.out.print(calStack[i]+",");
+			}
+			System.out.println("\n-----------------------");
+		}
+		
+		private char pushOrNot(char sign) { //判断优先级
+			if(topOfCal == 0) {
+				if(calNum.length() == 0) {
+					return '>';
 				}
-				if(underTop == cal[i]) {
-					underTopNum = i;
+				else {
+					return '<';
 				}
 			}
-			int pd = topNum - underTopNum;
-			if(pd <= 1 || topNum == 7) {
-				return true;
+			char cal[] = {'+', '-', '×', '÷', '(', ')', '#'};
+			char temp[][] = {	{'>', '>', '<', '<', '<', '>', '>'},
+								{'>', '>', '<', '<', '<', '>', '>'},
+								{'>', '>', '>', '>', '<', '>', '>'},
+								{'>', '>', '>', '>', '<', '>', '>'},
+								{'<', '<', '<', '<', '<', '=', ' '},
+								{'>', '>', '>', '>', ' ', '>', '>'},
+								{'<', '<', '<', '<', '<', ' ', '='}
+			};
+			int nowSign = 0, topSign = 0;
+			for(int i = 0; i < 7; i++) {
+				if(sign == cal[i]) {
+					nowSign = i;
+				}
+				if(calStack[topOfCal - 1].charAt(0) == cal[i]) {
+					topSign = i;
+				}
 			}
-			return false;
+			System.out.println("判断优先级->  " + sign + " " + temp[topSign][nowSign] + " " + calStack[topOfCal-1]);
+			return temp[topSign][nowSign];
 		}
 		
 	}
@@ -383,8 +427,11 @@ public class MiniCalMain extends MiniCalMenu {
 		button1234[1] = " - ";
 		button1234[2] = " × ";
 		button1234[3] = " ÷ ";
-		if(displayNum.charAt(displayNum.length() - 1) == ' ') {
+		if(displayNum.charAt(displayNum.length() - 1) == ' ' && displayNum.charAt(displayNum.length() - 2) != ')' && displayNum.charAt(displayNum.length() - 2) != '(') {
 			displayNum.delete(displayNum.length() - 3, displayNum.length());
+		}
+		if(displayNum.charAt(displayNum.length() - 1) == ' ') {
+			displayNum.deleteCharAt(displayNum.length() - 1);
 		}
 		if(point == false) {
 			point = true;

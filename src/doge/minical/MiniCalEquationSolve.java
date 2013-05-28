@@ -1,7 +1,6 @@
 package doge.minical;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -117,7 +116,7 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		textResult.setText(R.string.to_show_result);
 	}
 	
-	private void TextSize() {
+	/**private void TextSize() {
 		SharedPreferences tSize = getSharedPreferences("esTextSize", 0);
 		int btn_size, dis_size;
 		btn_size = tSize.getInt("btn_size", 15) + 10;
@@ -129,7 +128,7 @@ public class MiniCalEquationSolve extends MiniCalMenu {
 		solve.setTextSize(btn_size);
 		reset.setTextSize(btn_size);
 	}
-	
+	*/
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
